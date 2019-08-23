@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import 'typeface-roboto';
 import './index.css';
 import ListContacts from './components/ListContacts';
+import AddEditContact from './components/AddEditContact';
 import * as serviceWorker from './serviceWorker';
 
 function About() {
@@ -14,7 +15,8 @@ function AppRouter() {
   return (
     <Router>
       <Route path="/" exact component={ListContacts} />
-      <Route path="/about/" component={About} />
+      <Route path="/add/" component={AddEditContact} />
+      <Route path="/edit/:id" component={AddEditContact} />
     </Router>
   );
 }
