@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import 'typeface-roboto';
 import './index.css';
-import App from './App';
+import ListContacts from './components/ListContacts';
 import * as serviceWorker from './serviceWorker';
 
 function About() {
@@ -13,7 +13,7 @@ function About() {
 function AppRouter() {
   return (
     <Router>
-      <Route path="/" exact component={App} />
+      <Route path="/" exact component={ListContacts} />
       <Route path="/about/" component={About} />
     </Router>
   );
