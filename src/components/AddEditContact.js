@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Typography, Button, Paper, TextField, FormControlLabel, Checkbox } from '@material-ui/core';
 
 function AddEditContact({ match }) {
@@ -54,7 +55,11 @@ function AddEditContact({ match }) {
             }
             label="Is favorite?"
           />
-          <Button variant="contained">Cancel</Button>
+          <Link to="/">
+            <Button variant="contained">
+              Cancel
+            </Button>
+          </Link>
           <Button variant="contained">Save</Button>
         </form>
       </Grid>

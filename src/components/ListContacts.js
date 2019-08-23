@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Typography, Button, ButtonGroup, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
 
 function ListContactsHeader() {
@@ -33,7 +34,11 @@ function ContactListing() {
             </ButtonGroup>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained">New Contact</Button>
+            <Link to="/add">
+              <Button variant="contained">
+                New Contact
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
