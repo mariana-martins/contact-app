@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Typography, Button, ButtonGroup, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { getContacts } from '../storage';
 
 function ListContactsHeader() {
   return (
@@ -9,20 +10,7 @@ function ListContactsHeader() {
 }
 
 function ContactListing() {
-  const rows = [
-    {
-      name: "Carlos Rodriguez",
-      email: "carlosr@supermail.com",
-      telephone: "012 421 2222",
-      favorite: true,
-    },
-    {
-      name: "John Bieber",
-      email: "jb@supermail.com",
-      telephone: "",
-      favorite: false,
-    }
-  ]
+  const rows = getContacts();
   return (
     <Grid container>
       <Grid item xs={12}>
