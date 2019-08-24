@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Typography, Button, ButtonGroup, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
-import { getContacts, deleteContactBySlug } from '../storage';
+import { getContacts, getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import DeleteDialog from './DeleteDialog';
 
 function ListContactsHeader() {
@@ -16,8 +16,17 @@ function ContactListing() {
 
   const deleteContact = (slug) => {
     deleteContactBySlug(slug);
-
     setSuccessMessage('Your contact was deleted!');
+  };
+
+  const toggleFavorite = (slug, name) => {
+    const contact = getContactBySlug(slug);
+    contact.favorite = !contact.favorite;
+    upsertContact(contact);
+    const message = contact.favorite
+      ? `${name} is a favorite contact now!`
+      : `${name} isn't a favorite contact now!`
+    setSuccessMessage(message);
   };
 
   const rows = getContacts();
@@ -52,7 +61,7 @@ function ContactListing() {
             <TableBody>
               {rows.map(row => (
                 <TableRow key={row.name}>
-                  <TableCell>{row.favorite ? '⭐' : '👩'}</TableCell>
+                  <TableCell onClick={() => toggleFavorite(row.slug, row.name)}>{row.favorite ? '⭐' : '👩'}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.email}</TableCell>
                   <TableCell>{row.telephone}</TableCell>
