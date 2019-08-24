@@ -13,6 +13,7 @@ function ListContactsHeader() {
 function ContactListing() {
 
   const [successMessage, setSuccessMessage] = React.useState(null);
+  const [filterMode, setFilterMode] = React.useState('all');
 
   const deleteContact = (slug) => {
     deleteContactBySlug(slug);
@@ -30,7 +31,20 @@ function ContactListing() {
     e.stopPropagation();
   };
 
-  const rows = getContacts();
+  const getFilteredContacts = () => {
+    if (filterMode === "all") {
+      return getContacts();
+    }
+
+    if (filterMode === "favorites") {
+      return getContacts().filter((contact) => contact.favorite);
+    }
+
+    // Filter mode not expected
+    return [];
+  };
+
+  const rows = getFilteredContacts();
 
   return (
     <Grid container>
@@ -38,8 +52,18 @@ function ContactListing() {
         <Grid container>
           <Grid item xs={6}>
             <ButtonGroup> {/* TODO: ADD ARIA-LABEL */}
-              <Button>ALL</Button>
-              <Button>MY FAVORITES</Button>
+              <Button
+                disabled={filterMode === "all"}
+                onClick={() => setFilterMode("all")}
+              >
+                ALL
+              </Button>
+              <Button
+                disabled={filterMode === "favorites"}
+                onClick={() => setFilterMode("favorites")}
+              >
+                MY FAVORITES
+              </Button>
             </ButtonGroup>
           </Grid>
           <Grid item xs={6}>
@@ -61,9 +85,9 @@ function ContactListing() {
           <Table>
             <TableBody>
               {rows.map(row => (
-                <Route key={row.name} render={({ history}) => (
-                  <TableRow  onClick={() => history.push(`/edit/${row.slug}`)}>
-                    <TableCell onClick={(e) => toggleFavorite(e, row.slug, row.name)}>{row.favorite ? '⭐' : '👩'}</TableCell>
+                <Route key={row.name} render={({ history }) => (
+                  <TableRow onClick={() => history.push(`/edit/${row.slug}`)}>
+                    <TableCell onClick={(e) => toggleFavorite(e, row.slug, row.name)}>{row.favorite ? '⭐' : '🔲'}</TableCell>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.email}</TableCell>
                     <TableCell>{row.telephone}</TableCell>
