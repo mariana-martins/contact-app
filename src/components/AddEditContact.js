@@ -19,6 +19,11 @@ function AddEditContact({ match }) {
 
   const [errorMessage, setErrorMessage] = React.useState(null);
 
+  // If it is on edit mode and contact does not exist than go to home.
+  if (!isAddMode && !getContactBySlug(match.params.id)) {
+    return <Redirect to="/" />;
+  }
+
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
