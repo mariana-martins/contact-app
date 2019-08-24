@@ -18,7 +18,7 @@ function AddEditContact({ match }) {
     setValues({ ...values, [name]: event.target.checked });
   };
 
-  const isAddMode = !match.params.id;
+  const isAddMode = !(match && match.params && match.params.id);
   return (
     <Grid container>
       <Grid item xs={12}>
