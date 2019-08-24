@@ -1,16 +1,19 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Grid, Typography, Button, TextField, FormControlLabel, Checkbox } from '@material-ui/core';
-import { getContactBySlug, upsertContact } from '../storage';
+import { getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import { slugify } from '../utils';
 
 function AddEditContact({ match }) {
-  const [values, setValues] = React.useState({
-    name: '',
-    email: '',
-    telephone: '',
-    favorite: false,
-  });
+  const isAddMode = !(match && match.params && match.params.id);
+  const [values, setValues] = React.useState(isAddMode
+    ? {
+      name: '',
+      email: '',
+      telephone: '',
+      favorite: false,
+    }
+    : getContactBySlug(match.params.id));
 
   const [saved, setSaved] = React.useState(false);
 
@@ -23,8 +26,6 @@ function AddEditContact({ match }) {
   const handleCheckbox = name => event => {
     setValues({ ...values, [name]: event.target.checked });
   };
-
-  const isAddMode = !(match && match.params && match.params.id);
 
   const validateRequired = (value) => {
     return value && value.trim() !== '';
@@ -48,7 +49,15 @@ function AddEditContact({ match }) {
       ...values,
       slug,
     });
-
+    /*
+      If user changes the contact name, it's going to change the slug.
+      We use slug as unique identifier for contacts.
+      So, if slug changes it's going to insert a new contact.
+      Now, we have to delete the old one.
+    */
+    if (!isAddMode && slug !== match.params.id) {
+      deleteContactBySlug(match.params.id);
+    }
     setSaved(true);
   };
 

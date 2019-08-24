@@ -4,8 +4,13 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 export default function DeleteDialog({ name, onConfirm }) {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => setOpen(true);
+  const handleClickOpen = (e) => {
+    setOpen(true);
+    e.stopPropagation();
+  };
+
   const handleClose = () => setOpen(false);
+
   const handleConfirm = () => {
     onConfirm();
     setOpen(false);
@@ -19,6 +24,7 @@ export default function DeleteDialog({ name, onConfirm }) {
       <Dialog
         open={open}
         onClose={handleClose}
+        onClick={(e) => e.stopPropagation()}
         aria-labelledby="delete-dialog-title"
         aria-describedby="delete-dialog-description"
       >

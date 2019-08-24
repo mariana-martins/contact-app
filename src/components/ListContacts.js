@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { Grid, Typography, Button, ButtonGroup, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
 import { getContacts, getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import DeleteDialog from './DeleteDialog';
@@ -19,7 +19,7 @@ function ContactListing() {
     setSuccessMessage('Your contact was deleted!');
   };
 
-  const toggleFavorite = (slug, name) => {
+  const toggleFavorite = (e, slug, name) => {
     const contact = getContactBySlug(slug);
     contact.favorite = !contact.favorite;
     upsertContact(contact);
@@ -27,6 +27,7 @@ function ContactListing() {
       ? `${name} is a favorite contact now!`
       : `${name} isn't a favorite contact now!`
     setSuccessMessage(message);
+    e.stopPropagation();
   };
 
   const rows = getContacts();
@@ -60,18 +61,20 @@ function ContactListing() {
           <Table>
             <TableBody>
               {rows.map(row => (
-                <TableRow key={row.name}>
-                  <TableCell onClick={() => toggleFavorite(row.slug, row.name)}>{row.favorite ? '⭐' : '👩'}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.telephone}</TableCell>
-                  <TableCell>
-                    <DeleteDialog
-                      name={row.name}
-                      onConfirm={() => deleteContact(row.slug)}
-                    />
-                  </TableCell>
-                </TableRow>
+                <Route key={row.name} render={({ history}) => (
+                  <TableRow  onClick={() => history.push(`/edit/${row.slug}`)}>
+                    <TableCell onClick={(e) => toggleFavorite(e, row.slug, row.name)}>{row.favorite ? '⭐' : '👩'}</TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.email}</TableCell>
+                    <TableCell>{row.telephone}</TableCell>
+                    <TableCell>
+                      <DeleteDialog
+                        name={row.name}
+                        onConfirm={() => deleteContact(row.slug)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                )} />
               ))}
             </TableBody>
           </Table>
