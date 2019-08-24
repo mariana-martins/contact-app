@@ -1,14 +1,67 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Grid, Typography, Button, ButtonGroup, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { getContacts, getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import DeleteDialog from './DeleteDialog';
+import SuccessMessage from './SuccessMessage';
 
 function ListContactsHeader() {
   return (
     <Typography variant="h1">Contact App</Typography>
   );
 }
+
+function MenuBar({ filterMode, onFilterChange }) {
+  return (
+    <Grid container>
+      <Grid container item xs={9} md={6} justify="flex-start">
+        <ButtonGroup> {/* TODO: ADD ARIA-LABEL */}
+          <Button
+            disabled={filterMode === "all"}
+            onClick={() => onFilterChange("all")}
+          >
+            ALL
+            </Button>
+          <Button
+            disabled={filterMode === "favorites"}
+            onClick={() => onFilterChange("favorites")}
+          >
+            MY FAVORITES
+            </Button>
+        </ButtonGroup>
+      </Grid>
+      <Grid container item xs={3} md={6} justify="flex-end">
+        <Link to="/add">
+          <Button variant="contained">
+            New Contact
+            </Button>
+        </Link>
+      </Grid>
+    </Grid>
+  );
+}
+
+function ContactEntry({ entry, toggleFavorite, children }) {
+  const { slug, name, email, telephone, favorite } = entry;
+  return (
+    <Route key={name} render={({ history }) => (
+      <TableRow onClick={() => history.push(`/edit/${slug}`)}>
+        <TableCell onClick={(e) => toggleFavorite(e, slug, name)}>{favorite ? '⭐' : '🔲'}</TableCell>
+        <TableCell>{name}</TableCell>
+        <TableCell>{email}</TableCell>
+        <TableCell>{telephone}</TableCell>
+        <TableCell>{children}</TableCell>
+      </TableRow>
+    )} />
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(8),
+  },
+}));
 
 function ContactListing() {
 
@@ -46,66 +99,31 @@ function ContactListing() {
 
   const rows = getFilteredContacts();
 
+  const classes = useStyles();
+
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Grid container>
-          <Grid item xs={6}>
-            <ButtonGroup> {/* TODO: ADD ARIA-LABEL */}
-              <Button
-                disabled={filterMode === "all"}
-                onClick={() => setFilterMode("all")}
-              >
-                ALL
-              </Button>
-              <Button
-                disabled={filterMode === "favorites"}
-                onClick={() => setFilterMode("favorites")}
-              >
-                MY FAVORITES
-              </Button>
-            </ButtonGroup>
-          </Grid>
-          <Grid item xs={6}>
-            <Link to="/add">
-              <Button variant="contained">
-                New Contact
-              </Button>
-            </Link>
-          </Grid>
+    <Paper className={classes.root}>
+      {successMessage && <SuccessMessage message={successMessage} onClose={() => setSuccessMessage(null)} />}
+      <Grid container>
+        <Grid item xs={12}>
+          <MenuBar filterMode={filterMode} onFilterChange={setFilterMode} />
         </Grid>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography>
-          {successMessage}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Paper>
+        <Grid item xs={12}>
           <Table>
             <TableBody>
               {rows.map(row => (
-                <Route key={row.name} render={({ history }) => (
-                  <TableRow onClick={() => history.push(`/edit/${row.slug}`)}>
-                    <TableCell onClick={(e) => toggleFavorite(e, row.slug, row.name)}>{row.favorite ? '⭐' : '🔲'}</TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.email}</TableCell>
-                    <TableCell>{row.telephone}</TableCell>
-                    <TableCell>
-                      <DeleteDialog
-                        name={row.name}
-                        onConfirm={() => deleteContact(row.slug)}
-                      />
-                    </TableCell>
-                  </TableRow>
-                )} />
+                <ContactEntry entry={row} toggleFavorite={toggleFavorite}>
+                  <DeleteDialog
+                    name={row.name}
+                    onConfirm={() => deleteContact(row.slug)}
+                  />
+                </ContactEntry>
               ))}
             </TableBody>
           </Table>
-        </Paper>
-
+        </Grid>
       </Grid>
-    </Grid>
+    </Paper>
   );
 }
 
