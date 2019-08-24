@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Typography, Button, ButtonGroup, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
-import { getContacts } from '../storage';
+import { getContacts, deleteContactBySlug } from '../storage';
+import DeleteDialog from './DeleteDialog';
 
 function ListContactsHeader() {
   return (
@@ -10,7 +11,17 @@ function ListContactsHeader() {
 }
 
 function ContactListing() {
+
+  const [successMessage, setSuccessMessage] = React.useState(null);
+
+  const deleteContact = (slug) => {
+    deleteContactBySlug(slug);
+
+    setSuccessMessage('Your contact was deleted!');
+  };
+
   const rows = getContacts();
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -31,6 +42,11 @@ function ContactListing() {
         </Grid>
       </Grid>
       <Grid item xs={12}>
+        <Typography>
+          {successMessage}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
         <Paper>
           <Table>
             <TableBody>
@@ -40,6 +56,12 @@ function ContactListing() {
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.email}</TableCell>
                   <TableCell>{row.telephone}</TableCell>
+                  <TableCell>
+                    <DeleteDialog
+                      name={row.name}
+                      onConfirm={() => deleteContact(row.slug)}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
