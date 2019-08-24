@@ -66,7 +66,7 @@ function AddEditContact({ match }) {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <form onSubmit={saveContact} noValidate>
+        <form noValidate>
           <TextField
             label="Name"
             value={values.name}
@@ -105,6 +105,7 @@ function AddEditContact({ match }) {
           <Button
             variant="contained"
             disabled={!isFormValid()}
+            onClick={saveContact}
           >
             Save
           </Button>
