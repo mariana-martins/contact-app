@@ -4,6 +4,13 @@ import { Grid, Typography, Button, TextField, FormControlLabel, Checkbox } from 
 import { getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import { slugify } from '../utils';
 
+// Using W3C regexp available on https://emailregex.com/
+const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+// Reference: https://regexr.com/3c53v
+// eslint-disable-next-line
+const telephoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+
 function AddEditContact({ match }) {
   const isAddMode = !(match && match.params && match.params.id);
   const [values, setValues] = React.useState(isAddMode
@@ -38,8 +45,20 @@ function AddEditContact({ match }) {
 
   const isFormValid = () => {
     const { name, email } = values;
-    return validateRequired(name) && validateRequired(email);
+    return validateRequired(name) &&
+      validateRequired(email) &&
+      emailRegex.test(email);
   };
+
+  const isEmailValid = () => {
+    const { email } = values;
+    return !email || emailRegex.test(email);
+  }
+
+  const isTelephoneValid = () => {
+    const { telephone } = values;
+    return !telephone || telephoneRegex.test(telephone);
+  }
 
   const saveContact = () => {
     const slug = slugify(values.name);
@@ -94,8 +113,11 @@ function AddEditContact({ match }) {
             value={values.email}
             onChange={handleChange('email')}
             variant="outlined"
-            fullWidth
+            type="email"
             required
+            fullWidth
+            error={!isEmailValid()}
+            helperText={!isEmailValid() && 'Email is invalid.'}
           />
           <TextField
             label="Telephone"
@@ -104,6 +126,8 @@ function AddEditContact({ match }) {
             variant="outlined"
             type="tel"
             fullWidth
+            error={!isTelephoneValid()}
+            helperText={!isTelephoneValid() && 'Telephone is invalid.'}
           />
           <FormControlLabel
             control={
