@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import 'typeface-roboto';
 import './index.css';
+
 import ListContacts from './components/ListContacts';
 import AddEditContact from './components/AddEditContact';
 import * as serviceWorker from './serviceWorker';
-
-function About() {
-  return <p>Test</p>;
-}
 
 function AppRouter() {
   return (
