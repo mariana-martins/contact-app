@@ -1,20 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import 'typeface-roboto';
 import './index.css';
 
 import ListContacts from './components/ListContacts';
 import AddEditContact from './components/AddEditContact';
+import NotFound from './components/NotFound';
 import * as serviceWorker from './serviceWorker';
 
 function AppRouter() {
   return (
     <Router>
-      <Route path="/" exact component={ListContacts} />
-      <Route path="/add/" component={AddEditContact} />
-      <Route path="/edit/:id" component={AddEditContact} />
+      <Switch>
+        <Route path="/" exact component={ListContacts} />
+        <Route path="/add" exact component={AddEditContact} />
+        <Route path="/edit/:id" exact component={AddEditContact} />
+        <Route component={NotFound} />
+      </Switch>
     </Router>
   );
 }
