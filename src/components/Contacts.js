@@ -7,6 +7,7 @@ import ContactsList from './ContactsList';
 import ContactsTable from './ContactsTable';
 import SuccessMessage from './SuccessMessage';
 import MenuBar from './MenuBar';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,6 +84,7 @@ function Contacts() {
       <Grid item xs={12}>
         <ContactListing />
       </Grid>
+      <Footer />
     </Grid>
   );
 }

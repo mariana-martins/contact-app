@@ -4,6 +4,7 @@ import { Grid, Typography, Button, TextField, FormControlLabel, Checkbox, Paper 
 import { makeStyles } from '@material-ui/core/styles';
 import { getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import { slugify } from '../utils';
+import Footer from './Footer';
 
 // Using W3C regexp available on https://emailregex.com/
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -186,6 +187,7 @@ function AddEditContact({ match }) {
           </Grid>
         </form>
       </Paper>
+      <Footer />
     </Grid>
   );
 }
