@@ -8,7 +8,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import 'typeface-roboto';
 import './index.css';
 
-import ListContacts from './components/ListContacts';
+import Contacts from './components/Contacts';
 import AddEditContact from './components/AddEditContact';
 import NotFound from './components/NotFound';
 import * as serviceWorker from './serviceWorker';
@@ -30,7 +30,7 @@ function AppRouter() {
       <Container maxWidth="md">
         <Router>
           <Switch>
-            <Route path="/" exact component={ListContacts} />
+            <Route path="/" exact component={Contacts} />
             <Route path="/add" exact component={AddEditContact} />
             <Route path="/edit/:id" exact component={AddEditContact} />
             <Route component={NotFound} />

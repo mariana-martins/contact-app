@@ -1,38 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { Grid, Typography, Button, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { Grid, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getContacts, getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
-import DeleteDialog from './DeleteDialog';
+import ContactsList from './ContactsList';
+import ContactsTable from './ContactsTable';
 import SuccessMessage from './SuccessMessage';
 import MenuBar from './MenuBar';
-
-function ListContactsHeader() {
-  return (
-    <Typography variant="h1">Contact App</Typography>
-  );
-}
-
-function ContactEntry({ entry, toggleFavorite, children }) {
-  const { slug, name, email, telephone, favorite } = entry;
-  return (
-    <Route key={name} render={({ history }) => (
-      <TableRow onClick={() => history.push(`/edit/${slug}`)}>
-        <TableCell>
-          <Button onClick={(e) => toggleFavorite(e, slug, name)}>
-            {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </Button>
-        </TableCell>
-        <TableCell>{name}</TableCell>
-        <TableCell>{email}</TableCell>
-        <TableCell>{telephone}</TableCell>
-        <TableCell>{children}</TableCell>
-      </TableRow>
-    )} />
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ContactListing() {
-
   const [successMessage, setSuccessMessage] = React.useState(null);
   const [filterMode, setFilterMode] = React.useState('all');
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
   const deleteContact = (slug) => {
     deleteContactBySlug(slug);
@@ -77,9 +51,9 @@ function ContactListing() {
     return [];
   };
 
-  const rows = getFilteredContacts();
-
   const classes = useStyles();
+  const contacts = getFilteredContacts();
+  const RenderContacts = isMobile ? ContactsList : ContactsTable;
 
   return (
     <Paper className={classes.root}>
@@ -89,29 +63,22 @@ function ContactListing() {
           <MenuBar filterMode={filterMode} onFilterChange={setFilterMode} />
         </Grid>
         <Grid item xs={12}>
-          <Table>
-            <TableBody>
-              {rows.map(row => (
-                <ContactEntry key={row.name} entry={row} toggleFavorite={toggleFavorite}>
-                  <DeleteDialog
-                    name={row.name}
-                    onConfirm={() => deleteContact(row.slug)}
-                  />
-                </ContactEntry>
-              ))}
-            </TableBody>
-          </Table>
+          <RenderContacts
+            data={contacts}
+            toggleFavorite={toggleFavorite}
+            deleteContact={deleteContact}
+          />
         </Grid>
       </Grid>
     </Paper>
   );
 }
 
-function ListContacts() {
+function Contacts() {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <ListContactsHeader />
+        <Typography variant="h1">Contact App</Typography>
       </Grid>
       <Grid item xs={12}>
         <ContactListing />
@@ -120,4 +87,4 @@ function ListContacts() {
   );
 }
 
-export default ListContacts;
+export default Contacts;
