@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Button, ButtonGroup } from '@material-ui/core';
+import { Grid, Button, ButtonGroup, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
@@ -8,19 +8,24 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(3),
   },
+  button: {
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(1, 0),
+    },
+  },
   addIcon: {
     marginRight: theme.spacing(0.5),
   },
 }));
 
 function MenuBar({ filterMode, onFilterChange }) {
-
   const classes = useStyles();
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
   return (
     <Grid container className={classes.root}>
-      <Grid container item xs={9} md={6} justify="flex-start">
-        <ButtonGroup fullWidth> {/* TODO: ADD ARIA-LABEL */}
+      <Grid container item xs={12} md={6} justify={isMobile ? "center" : "flex-start"}>
+        <ButtonGroup fullWidth className={classes.button}> {/* TODO: ADD ARIA-LABEL */}
           <Button
             disabled={filterMode === "all"}
             onClick={() => onFilterChange("all")}
@@ -35,9 +40,9 @@ function MenuBar({ filterMode, onFilterChange }) {
             </Button>
         </ButtonGroup>
       </Grid>
-      <Grid container item xs={3} md={6} justify="flex-end">
+      <Grid container item xs={12} md={6} justify={isMobile ? "center" : "flex-end"}>
         <Link to="/add">
-          <Button>
+          <Button className={classes.button}>
             <AddCircleIcon className={classes.addIcon} /> New Contact
           </Button>
         </Link>

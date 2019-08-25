@@ -37,6 +37,9 @@ function ContactEntry({ entry, toggleFavorite, children }) {
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(8),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+    }
   },
 }));
 
