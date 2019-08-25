@@ -5,10 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
+  height: 100%;
   /* MUI Colors Cyan 50, Teal A200 and lightBlue 900 */
   background: linear-gradient(to top, #e0f7fa,#64ffda,#01579b);
-
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 code {
