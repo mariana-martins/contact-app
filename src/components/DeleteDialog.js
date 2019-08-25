@@ -1,8 +1,19 @@
 import React from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { Button, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { makeStyles } from '@material-ui/core/styles';
+import indigo from '@material-ui/core/colors/indigo';
+
+const useStyles = makeStyles({
+  button:{
+    '&:hover': {
+      backgroundColor: indigo[100],
+    },
+  }
+});
 
 export default function DeleteDialog({ name, onConfirm }) {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = (e) => {
@@ -19,9 +30,9 @@ export default function DeleteDialog({ name, onConfirm }) {
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>
+      <IconButton onClick={handleClickOpen} className={classes.button}>
         <DeleteForeverIcon />
-      </Button>
+      </IconButton>
       <Dialog
         open={open}
         onClose={handleClose}

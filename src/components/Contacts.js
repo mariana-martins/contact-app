@@ -11,6 +11,7 @@ import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginBottom: theme.spacing(1),
     padding: theme.spacing(8),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(2),
