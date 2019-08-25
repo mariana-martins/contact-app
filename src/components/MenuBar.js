@@ -30,11 +30,15 @@ function MenuBar({ filterMode, onFilterChange }) {
           <Button
             disabled={filterMode === "all"}
             onClick={() => onFilterChange("all")}
+            color="primary"
+            variant="contained"
           >
             ALL
             </Button>
           <Button
             disabled={filterMode === "favorites"}
+            color="primary"
+            variant="contained"
             onClick={() => onFilterChange("favorites")}
           >
             MY FAVORITES
@@ -43,7 +47,11 @@ function MenuBar({ filterMode, onFilterChange }) {
       </Grid>
       <Grid container item xs={12} md={6} justify={isMobile ? "center" : "flex-end"}>
         <Link to="/add">
-          <Button className={classes.button}>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+          >
             <AddCircleIcon className={classes.addIcon} /> New Contact
           </Button>
         </Link>

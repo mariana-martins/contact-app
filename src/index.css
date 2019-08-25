@@ -6,7 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background: linear-gradient(to top, #e1eec3, #f05053);
+  /* MUI Colors Cyan 50, Teal A200 and lightBlue 900 */
+  background: linear-gradient(to top, #e0f7fa,#64ffda,#01579b);
 
 }
 

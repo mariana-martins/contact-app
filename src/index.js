@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Container } from '@material-ui/core';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import indigo from '@material-ui/core/colors/indigo';
 
 import 'typeface-roboto';
 import './index.css';
@@ -22,6 +23,9 @@ const theme = createMuiTheme({
       margin: '50px 0',
     },
   },
+  palette: {
+    primary: indigo
+  }
 });
 
 function AppRouter() {

@@ -5,6 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import { slugify } from '../utils';
 
+// Using W3C regexp available on https://emailregex.com/
+const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+// Reference: https://regexr.com/3c53v
+// eslint-disable-next-line
+const telephoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(8),
@@ -17,13 +24,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Using W3C regexp available on https://emailregex.com/
-const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-// Reference: https://regexr.com/3c53v
-// eslint-disable-next-line
-const telephoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
-
 function AddEditContact({ match }) {
   const isAddMode = !(match && match.params && match.params.id);
   const [values, setValues] = React.useState(isAddMode
@@ -31,7 +31,7 @@ function AddEditContact({ match }) {
       name: '',
       email: '',
       telephone: '',
-      favorite: false,
+      favorite: true,
     }
     : getContactBySlug(match.params.id));
 
@@ -156,9 +156,13 @@ function AddEditContact({ match }) {
             <Grid item xs={12}>
               <FormControlLabel
                 control={
-                  <Checkbox checked={values.favorite} onChange={handleCheckbox('favorite')} value="favorite" />
+                  <Checkbox
+                    color="primary"
+                    checked={values.favorite}
+                    onChange={handleCheckbox('favorite')}
+                    value="favorite" />
                 }
-                label="Is favorite?"
+                label="Is it a favorite contact?"
                 className={classes.field}
               />
             </Grid>
@@ -170,9 +174,10 @@ function AddEditContact({ match }) {
               </Grid>
               <Grid item>
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   disabled={!isFormValid()}
                   onClick={saveContact}
+                  color="primary"
                 >
                   Save
               </Button>
