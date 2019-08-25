@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Button, ButtonGroup } from '@material-ui/core';
+import { Grid, Button, ButtonGroup, Hidden, Fab } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      marginBottom: theme.spacing(3),
+    }
   },
   button: {
     [theme.breakpoints.down('sm')]: {
@@ -17,6 +20,15 @@ const useStyles = makeStyles((theme) => ({
   addIcon: {
     marginRight: theme.spacing(0.5),
   },
+  fab: {
+    margin: 0,
+    top: 'auto',
+    right: theme.spacing(3),
+    bottom: theme.spacing(3),
+    left: 'auto',
+    position: 'fixed',
+    zIndex: 99,
+  }
 }));
 
 function MenuBar({ filterMode, onFilterChange }) {
@@ -45,17 +57,26 @@ function MenuBar({ filterMode, onFilterChange }) {
             </Button>
         </ButtonGroup>
       </Grid>
-      <Grid container item xs={12} md={6} justify={isMobile ? "center" : "flex-end"}>
+      <Hidden smDown>
+        <Grid container item md={6} justify={"flex-end"}>
+          <Link to="/add">
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+            >
+              <AddCircleIcon className={classes.addIcon} /> New Contact
+                </Button>
+          </Link>
+        </Grid>
+      </Hidden>
+      <Hidden mdUp>
         <Link to="/add">
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
-            <AddCircleIcon className={classes.addIcon} /> New Contact
-          </Button>
+          <Fab color="primary" aria-label="add" className={classes.fab}>
+            <AddIcon />
+          </Fab>
         </Link>
-      </Grid>
+      </Hidden>
     </Grid>
   );
 }
