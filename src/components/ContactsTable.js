@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: indigo[100],
     },
-  }
+  },
 });
 
 function ContactRow({ entry, toggleFavorite, children }) {
