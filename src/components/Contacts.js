@@ -76,7 +76,7 @@ function ContactListing() {
         </Grid>
         <Grid item xs={12}>
           {contacts.length === 0 ? (
-            <Typography>No contacts available. Please, add one!</Typography>
+            <Typography>No contacts available.</Typography>
           ) : (
             <RenderContacts
               data={contacts}
