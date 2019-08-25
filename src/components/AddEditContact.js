@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   field: {
     margin: theme.spacing(1, 0),
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 function AddEditContact({ match }) {
@@ -169,7 +172,7 @@ function AddEditContact({ match }) {
             </Grid>
             <Grid container item xs={12} spacing={1}>
               <Grid item>
-                <Link to="/">
+                <Link to="/" className={classes.link}>
                   <Button variant="outlined">Cancel</Button>
                 </Link>
               </Grid>

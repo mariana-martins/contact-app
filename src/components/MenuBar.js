@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
     left: 'auto',
     position: 'fixed',
     zIndex: 99,
-  }
+  },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 function MenuBar({ filterMode, onFilterChange }) {
@@ -59,7 +62,7 @@ function MenuBar({ filterMode, onFilterChange }) {
       </Grid>
       <Hidden smDown>
         <Grid container item md={6} justify={"flex-end"}>
-          <Link to="/add">
+          <Link to="/add" className={classes.link}>
             <Button
               className={classes.button}
               variant="contained"
@@ -71,7 +74,7 @@ function MenuBar({ filterMode, onFilterChange }) {
         </Grid>
       </Hidden>
       <Hidden mdUp>
-        <Link to="/add">
+        <Link to="/add" className={classes.link}>
           <Fab color="primary" aria-label="add" className={classes.fab}>
             <AddIcon />
           </Fab>
