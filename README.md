@@ -28,6 +28,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload as you change the code.<br>
 You will also see any lint errors in the console.
 
+#### Loading test data locally
+
+If you want to load some contacts, open the browser console and type:
+
+```
+populateTestData()
+```
+
+It will add several contacts.  It's required to reload the page after doing it.
+
 ### ☘ Testing Contact App
 
 In the project directory, you can run:
