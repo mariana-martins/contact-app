@@ -8,6 +8,9 @@ import { slugify } from '../utils';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(8),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+    }
   },
   field: {
     margin: theme.spacing(1, 0),
@@ -104,7 +107,7 @@ function AddEditContact({ match }) {
       {saved && <Redirect to="/" />}
       <Grid item xs={12}>
         <Typography variant="h1">
-          {isAddMode ? 'Add a new contact information' : 'Edit an existent contact'}
+          {isAddMode ? 'Add new contact' : 'Edit contact'}
         </Typography>
       </Grid>
       <Paper className={classes.root}>

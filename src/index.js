@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Container } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
 import 'typeface-roboto';
@@ -26,7 +26,7 @@ const theme = createMuiTheme({
 
 function AppRouter() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={responsiveFontSizes(theme)}>
       <Container maxWidth="md">
         <Router>
           <Switch>
