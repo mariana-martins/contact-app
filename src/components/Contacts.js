@@ -65,11 +65,15 @@ function ContactListing() {
           <MenuBar filterMode={filterMode} onFilterChange={setFilterMode} />
         </Grid>
         <Grid item xs={12}>
-          <RenderContacts
-            data={contacts}
-            toggleFavorite={toggleFavorite}
-            deleteContact={deleteContact}
-          />
+          {
+            contacts.length === 0
+            ? <Typography>No contacts available. Please, add one!</Typography>
+            : <RenderContacts
+              data={contacts}
+              toggleFavorite={toggleFavorite}
+              deleteContact={deleteContact}
+            />
+          }
         </Grid>
       </Grid>
     </Paper>
