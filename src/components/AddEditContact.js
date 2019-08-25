@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Grid, Typography, Button, TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Grid, Typography, Button, TextField, FormControlLabel, Checkbox, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import { slugify } from '../utils';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(8),
+  },
+  field: {
+    margin: theme.spacing(1, 0),
+  },
+}));
 
 // Using W3C regexp available on https://emailregex.com/
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -26,6 +36,8 @@ function AddEditContact({ match }) {
 
   const [errorMessage, setErrorMessage] = React.useState(null);
 
+  const classes = useStyles();
+
   // If it is on edit mode and contact does not exist than go to home.
   if (!isAddMode && !getContactBySlug(match.params.id)) {
     return <Redirect to="/" />;
@@ -46,8 +58,19 @@ function AddEditContact({ match }) {
   const isFormValid = () => {
     const { name, email } = values;
     return validateRequired(name) &&
+      isNameValid() &&
       validateRequired(email) &&
       emailRegex.test(email);
+  };
+
+  const isNameValid = () => {
+    const slug = slugify(values.name);
+    const savedContact = getContactBySlug(slug);
+    if (isAddMode) {
+      return !savedContact;
+    } else {
+      return !savedContact || slug === match.params.id;
+    }
   };
 
   const isEmailValid = () => {
@@ -62,13 +85,6 @@ function AddEditContact({ match }) {
 
   const saveContact = () => {
     const slug = slugify(values.name);
-    const savedContact = getContactBySlug(slug);
-
-    if (isAddMode && savedContact !== undefined) {
-      setErrorMessage("This contact already exists.");
-      return;
-    }
-
     upsertContact({
       ...values,
       slug,
@@ -98,57 +114,77 @@ function AddEditContact({ match }) {
           {errorMessage}
         </Typography>
       </Grid>
-      <Grid item xs={12}>
+      <Paper className={classes.root}>
         <form noValidate>
-          <TextField
-            label="Name"
-            value={values.name}
-            onChange={handleChange('name')}
-            variant="outlined"
-            fullWidth
-            required
-          />
-          <TextField
-            label="Email"
-            value={values.email}
-            onChange={handleChange('email')}
-            variant="outlined"
-            type="email"
-            required
-            fullWidth
-            error={!isEmailValid()}
-            helperText={!isEmailValid() && 'Email is invalid.'}
-          />
-          <TextField
-            label="Telephone"
-            value={values.telephone}
-            onChange={handleChange('telephone')}
-            variant="outlined"
-            type="tel"
-            fullWidth
-            error={!isTelephoneValid()}
-            helperText={!isTelephoneValid() && 'Telephone is invalid.'}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={values.favorite} onChange={handleCheckbox('favorite')} value="favorite" />
-            }
-            label="Is favorite?"
-          />
-          <Link to="/">
-            <Button variant="contained">
-              Cancel
-            </Button>
-          </Link>
-          <Button
-            variant="contained"
-            disabled={!isFormValid()}
-            onClick={saveContact}
-          >
-            Save
-          </Button>
+          <Grid container>
+            <Grid item xs={12}>
+              <TextField
+                label="Name"
+                value={values.name}
+                onChange={handleChange('name')}
+                variant="outlined"
+                fullWidth
+                required
+                error={!isNameValid()}
+                helperText={!isNameValid() && 'This contact already exists.'}
+                className={classes.field}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Email"
+                value={values.email}
+                onChange={handleChange('email')}
+                variant="outlined"
+                type="email"
+                required
+                fullWidth
+                error={!isEmailValid()}
+                helperText={!isEmailValid() && 'Email is invalid.'}
+                className={classes.field}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Telephone"
+                value={values.telephone}
+                onChange={handleChange('telephone')}
+                variant="outlined"
+                type="tel"
+                fullWidth
+                error={!isTelephoneValid()}
+                helperText={!isTelephoneValid() && 'Telephone is invalid.'}
+                className={classes.field}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox checked={values.favorite} onChange={handleCheckbox('favorite')} value="favorite" />
+                }
+                label="Is favorite?"
+                className={classes.field}
+              />
+            </Grid>
+            <Grid container item xs={12} spacing={1}>
+              <Grid item>
+                <Link to="/">
+                  <Button variant="outlined">Cancel</Button>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  disabled={!isFormValid()}
+                  onClick={saveContact}
+                >
+                  Save
+              </Button>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
-      </Grid>
+      </Paper>
     </Grid>
   );
 }
