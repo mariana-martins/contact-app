@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { IconButton, Button, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, Typography, Divider } from '@material-ui/core';
+import { IconButton, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
