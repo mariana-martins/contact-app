@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
 import 'typeface-roboto';
+import 'typeface-lobster';
 import './index.css';
 
 import Contacts from './components/Contacts';
@@ -18,8 +19,10 @@ const theme = createMuiTheme({
   typography: {
     h1: {
       fontSize: '4rem',
+      fontFamily: 'lobster',
       textAlign: 'center',
       color: '#f0f0f0',
+      letterSpacing: '0.3rem',
       margin: '50px 0',
     },
   },
