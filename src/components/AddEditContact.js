@@ -34,8 +34,6 @@ function AddEditContact({ match }) {
 
   const [saved, setSaved] = React.useState(false);
 
-  const [errorMessage, setErrorMessage] = React.useState(null);
-
   const classes = useStyles();
 
   // If it is on edit mode and contact does not exist than go to home.
@@ -107,11 +105,6 @@ function AddEditContact({ match }) {
       <Grid item xs={12}>
         <Typography variant="h1">
           {isAddMode ? 'Add a new contact information' : 'Edit an existent contact'}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography>
-          {errorMessage}
         </Typography>
       </Grid>
       <Paper className={classes.root}>
