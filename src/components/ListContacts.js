@@ -89,7 +89,7 @@ function ContactListing() {
           <Table>
             <TableBody>
               {rows.map(row => (
-                <ContactEntry entry={row} toggleFavorite={toggleFavorite}>
+                <ContactEntry key={row.name} entry={row} toggleFavorite={toggleFavorite}>
                   <DeleteDialog
                     name={row.name}
                     onConfirm={() => deleteContact(row.slug)}
