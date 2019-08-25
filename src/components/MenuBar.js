@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Button, ButtonGroup, useMediaQuery } from '@material-ui/core';
+import { Grid, Button, ButtonGroup } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 

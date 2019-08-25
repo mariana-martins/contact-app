@@ -8,6 +8,9 @@ jest.mock('@material-ui/core/styles', () => ({
   makeStyles: () => () => ({}),
 }));
 
+// mock material ui to do nothing when calling useMediaQuery
+jest.mock('@material-ui/core/useMediaQuery', () => () => () => ({}));
+
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<Router><MenuBar /></Router>, div);
