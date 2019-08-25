@@ -1,44 +1,17 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
-import { Grid, Typography, Button, ButtonGroup, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { Route } from 'react-router-dom';
+import { Grid, Typography, Button, Paper, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { getContacts, getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
 import DeleteDialog from './DeleteDialog';
 import SuccessMessage from './SuccessMessage';
+import MenuBar from './MenuBar';
 
 function ListContactsHeader() {
   return (
     <Typography variant="h1">Contact App</Typography>
-  );
-}
-
-function MenuBar({ filterMode, onFilterChange }) {
-  return (
-    <Grid container>
-      <Grid container item xs={9} md={6} justify="flex-start">
-        <ButtonGroup> {/* TODO: ADD ARIA-LABEL */}
-          <Button
-            disabled={filterMode === "all"}
-            onClick={() => onFilterChange("all")}
-          >
-            ALL
-            </Button>
-          <Button
-            disabled={filterMode === "favorites"}
-            onClick={() => onFilterChange("favorites")}
-          >
-            MY FAVORITES
-            </Button>
-        </ButtonGroup>
-      </Grid>
-      <Grid container item xs={3} md={6} justify="flex-end">
-        <Link to="/add">
-          <Button variant="contained">
-            New Contact
-            </Button>
-        </Link>
-      </Grid>
-    </Grid>
   );
 }
 
@@ -47,7 +20,11 @@ function ContactEntry({ entry, toggleFavorite, children }) {
   return (
     <Route key={name} render={({ history }) => (
       <TableRow onClick={() => history.push(`/edit/${slug}`)}>
-        <TableCell onClick={(e) => toggleFavorite(e, slug, name)}>{favorite ? '⭐' : '🔲'}</TableCell>
+        <TableCell>
+          <Button onClick={(e) => toggleFavorite(e, slug, name)}>
+            {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </Button>
+        </TableCell>
         <TableCell>{name}</TableCell>
         <TableCell>{email}</TableCell>
         <TableCell>{telephone}</TableCell>

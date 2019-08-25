@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 export default function DeleteDialog({ name, onConfirm }) {
   const [open, setOpen] = React.useState(false);
@@ -18,8 +19,8 @@ export default function DeleteDialog({ name, onConfirm }) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        ❎
+      <Button onClick={handleClickOpen}>
+        <DeleteForeverIcon />
       </Button>
       <Dialog
         open={open}
