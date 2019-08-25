@@ -15,7 +15,7 @@ export default function SuccessMessage({ message, onClose }) {
       open={open}
       onClose={handleClose}
       ContentProps={{
-        'aria-describedby': 'message-id',
+        'aria-describedby': 'message-id'
       }}
       message={<span id="message-id">{message}</span>}
       action={[
@@ -26,7 +26,7 @@ export default function SuccessMessage({ message, onClose }) {
           onClick={onClose}
         >
           <CloseIcon />
-        </IconButton>,
+        </IconButton>
       ]}
     />
   );

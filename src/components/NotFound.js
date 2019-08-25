@@ -16,7 +16,9 @@ function NotFound() {
     <Grid container>
       <Grid item xs={12}>
         <Typography variant="h1">Page not found</Typography>
-        <Typography variant="h2">Going to redirect to home in 10 seconds</Typography>
+        <Typography variant="h2">
+          Going to redirect to home in 10 seconds
+        </Typography>
       </Grid>
       {redirectToHome && <Redirect to="/" />}
     </Grid>

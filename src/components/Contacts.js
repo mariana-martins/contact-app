@@ -2,21 +2,26 @@ import React from 'react';
 import { Grid, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { getContacts, getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
+import {
+  getContacts,
+  getContactBySlug,
+  upsertContact,
+  deleteContactBySlug
+} from '../storage';
 import ContactsList from './ContactsList';
 import ContactsTable from './ContactsTable';
 import SuccessMessage from './SuccessMessage';
 import MenuBar from './MenuBar';
 import Footer from './Footer';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(1),
     padding: theme.spacing(8),
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(2)
     }
-  },
+  }
 }));
 
 function ContactListing() {
@@ -24,7 +29,7 @@ function ContactListing() {
   const [filterMode, setFilterMode] = React.useState('all');
   const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
-  const deleteContact = (slug) => {
+  const deleteContact = slug => {
     deleteContactBySlug(slug);
     setSuccessMessage('Your contact was deleted!');
   };
@@ -35,18 +40,18 @@ function ContactListing() {
     upsertContact(contact);
     const message = contact.favorite
       ? `${name} is a favorite contact now!`
-      : `${name} isn't a favorite contact now!`
+      : `${name} isn't a favorite contact now!`;
     setSuccessMessage(message);
     e.stopPropagation();
   };
 
   const getFilteredContacts = () => {
-    if (filterMode === "all") {
+    if (filterMode === 'all') {
       return getContacts();
     }
 
-    if (filterMode === "favorites") {
-      return getContacts().filter((contact) => contact.favorite);
+    if (filterMode === 'favorites') {
+      return getContacts().filter(contact => contact.favorite);
     }
 
     // Filter mode not expected
@@ -59,21 +64,26 @@ function ContactListing() {
 
   return (
     <Paper className={classes.root}>
-      {successMessage && <SuccessMessage message={successMessage} onClose={() => setSuccessMessage(null)} />}
+      {successMessage && (
+        <SuccessMessage
+          message={successMessage}
+          onClose={() => setSuccessMessage(null)}
+        />
+      )}
       <Grid container>
         <Grid item xs={12}>
           <MenuBar filterMode={filterMode} onFilterChange={setFilterMode} />
         </Grid>
         <Grid item xs={12}>
-          {
-            contacts.length === 0
-            ? <Typography>No contacts available. Please, add one!</Typography>
-            : <RenderContacts
+          {contacts.length === 0 ? (
+            <Typography>No contacts available. Please, add one!</Typography>
+          ) : (
+            <RenderContacts
               data={contacts}
               toggleFavorite={toggleFavorite}
               deleteContact={deleteContact}
             />
-          }
+          )}
         </Grid>
       </Grid>
     </Paper>

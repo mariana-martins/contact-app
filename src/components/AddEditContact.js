@@ -1,8 +1,20 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Grid, Typography, Button, TextField, FormControlLabel, Checkbox, Paper } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Paper
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { getContactBySlug, upsertContact, deleteContactBySlug } from '../storage';
+import {
+  getContactBySlug,
+  upsertContact,
+  deleteContactBySlug
+} from '../storage';
 import { slugify } from '../utils';
 import Footer from './Footer';
 
@@ -13,31 +25,33 @@ const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-
 // eslint-disable-next-line
 const telephoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(8),
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(2)
     }
   },
   field: {
-    margin: theme.spacing(1, 0),
+    margin: theme.spacing(1, 0)
   },
   link: {
-    textDecoration: 'none',
-  },
+    textDecoration: 'none'
+  }
 }));
 
 function AddEditContact({ match }) {
   const isAddMode = !(match && match.params && match.params.id);
-  const [values, setValues] = React.useState(isAddMode
-    ? {
-      name: '',
-      email: '',
-      telephone: '',
-      favorite: true,
-    }
-    : getContactBySlug(match.params.id));
+  const [values, setValues] = React.useState(
+    isAddMode
+      ? {
+          name: '',
+          email: '',
+          telephone: '',
+          favorite: true
+        }
+      : getContactBySlug(match.params.id)
+  );
 
   const [saved, setSaved] = React.useState(false);
 
@@ -56,16 +70,18 @@ function AddEditContact({ match }) {
     setValues({ ...values, [name]: event.target.checked });
   };
 
-  const validateRequired = (value) => {
+  const validateRequired = value => {
     return value && value.trim() !== '';
-  }
+  };
 
   const isFormValid = () => {
     const { name, email } = values;
-    return validateRequired(name) &&
+    return (
+      validateRequired(name) &&
       isNameValid() &&
       validateRequired(email) &&
-      emailRegex.test(email);
+      emailRegex.test(email)
+    );
   };
 
   const isNameValid = () => {
@@ -81,18 +97,18 @@ function AddEditContact({ match }) {
   const isEmailValid = () => {
     const { email } = values;
     return !email || emailRegex.test(email);
-  }
+  };
 
   const isTelephoneValid = () => {
     const { telephone } = values;
     return !telephone || telephoneRegex.test(telephone);
-  }
+  };
 
   const saveContact = () => {
     const slug = slugify(values.name);
     upsertContact({
       ...values,
-      slug,
+      slug
     });
     /*
       If user changes the contact name, it's going to change the slug.
@@ -164,7 +180,8 @@ function AddEditContact({ match }) {
                     color="primary"
                     checked={values.favorite}
                     onChange={handleCheckbox('favorite')}
-                    value="favorite" />
+                    value="favorite"
+                  />
                 }
                 label="Is it a favorite contact?"
                 className={classes.field}
@@ -184,7 +201,7 @@ function AddEditContact({ match }) {
                   color="primary"
                 >
                   Save
-              </Button>
+                </Button>
               </Grid>
             </Grid>
           </Grid>

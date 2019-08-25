@@ -6,19 +6,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import AddIcon from '@material-ui/icons/Add';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.up('md')]: {
-      marginBottom: theme.spacing(3),
+      marginBottom: theme.spacing(3)
     }
   },
   button: {
     [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1, 0),
-    },
+      margin: theme.spacing(1, 0)
+    }
   },
   addIcon: {
-    marginRight: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5)
   },
   fab: {
     margin: 0,
@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(3),
     left: 'auto',
     position: 'fixed',
-    zIndex: 99,
+    zIndex: 99
   },
   link: {
-    textDecoration: 'none',
-  },
+    textDecoration: 'none'
+  }
 }));
 
 function MenuBar({ filterMode, onFilterChange }) {
@@ -40,28 +40,36 @@ function MenuBar({ filterMode, onFilterChange }) {
 
   return (
     <Grid container className={classes.root}>
-      <Grid container item xs={12} md={6} justify={isMobile ? "center" : "flex-start"}>
-        <ButtonGroup fullWidth className={classes.button}> {/* TODO: ADD ARIA-LABEL */}
+      <Grid
+        container
+        item
+        xs={12}
+        md={6}
+        justify={isMobile ? 'center' : 'flex-start'}
+      >
+        <ButtonGroup fullWidth className={classes.button}>
+          {' '}
+          {/* TODO: ADD ARIA-LABEL */}
           <Button
-            disabled={filterMode === "all"}
-            onClick={() => onFilterChange("all")}
+            disabled={filterMode === 'all'}
+            onClick={() => onFilterChange('all')}
             color="primary"
             variant="contained"
           >
             ALL
-            </Button>
+          </Button>
           <Button
-            disabled={filterMode === "favorites"}
+            disabled={filterMode === 'favorites'}
             color="primary"
             variant="contained"
-            onClick={() => onFilterChange("favorites")}
+            onClick={() => onFilterChange('favorites')}
           >
             MY FAVORITES
-            </Button>
+          </Button>
         </ButtonGroup>
       </Grid>
       <Hidden smDown>
-        <Grid container item md={6} justify={"flex-end"}>
+        <Grid container item md={6} justify={'flex-end'}>
           <Link to="/add" className={classes.link}>
             <Button
               className={classes.button}
@@ -69,7 +77,7 @@ function MenuBar({ filterMode, onFilterChange }) {
               color="primary"
             >
               <AddCircleIcon className={classes.addIcon} /> New Contact
-                </Button>
+            </Button>
           </Link>
         </Grid>
       </Hidden>
