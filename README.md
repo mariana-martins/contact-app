@@ -1,4 +1,6 @@
-# Contact App
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6b7b76e7-6619-4ad4-a3f5-bc9e6b98efaa/deploy-status)](https://app.netlify.com/sites/mariana-contact-app/deploys)
+
+# [Contact App](https://mariana-contact-app.netlify.com/)
 
 Contacts website using React and Material UI
 
