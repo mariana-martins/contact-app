@@ -1,24 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Button, ButtonGroup, Hidden, Fab } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { makeStyles } from '@material-ui/core/styles';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import AddIcon from '@material-ui/icons/Add';
+import { Grid, Button, ButtonGroup, Hidden, Fab } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { makeStyles } from '@mui/styles';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.up('md')]: {
-      marginBottom: theme.spacing(3)
-    }
+      marginBottom: theme.spacing(3),
+    },
   },
   button: {
     [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1, 0)
-    }
+      margin: theme.spacing(1, 0),
+    },
   },
   addIcon: {
-    marginRight: theme.spacing(0.5)
+    marginRight: theme.spacing(0.5),
   },
   fab: {
     margin: 0,
@@ -27,16 +27,16 @@ const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(3),
     left: 'auto',
     position: 'fixed',
-    zIndex: 99
+    zIndex: 99,
   },
   link: {
-    textDecoration: 'none'
-  }
+    textDecoration: 'none',
+  },
 }));
 
 function MenuBar({ filterMode, onFilterChange }) {
   const classes = useStyles();
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   return (
     <Grid container className={classes.root}>
@@ -45,7 +45,7 @@ function MenuBar({ filterMode, onFilterChange }) {
         item
         xs={12}
         md={6}
-        justify={isMobile ? 'center' : 'flex-start'}
+        justifyContent={isMobile ? 'center' : 'flex-start'}
       >
         <ButtonGroup fullWidth className={classes.button}>
           {' '}
@@ -69,7 +69,7 @@ function MenuBar({ filterMode, onFilterChange }) {
         </ButtonGroup>
       </Grid>
       <Hidden smDown>
-        <Grid container item md={6} justify={'flex-end'}>
+        <Grid container item md={6} justifyContent={'flex-end'}>
           <Link to="/add" className={classes.link}>
             <Button
               className={classes.button}

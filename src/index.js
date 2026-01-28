@@ -1,13 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Container } from '@material-ui/core';
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import indigo from '@material-ui/core/colors/indigo';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Container } from '@mui/material';
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
+import { indigo } from '@mui/material/colors';
+import { createRoot } from 'react-dom/client';
 
-import 'typeface-roboto';
-import 'typeface-lobster';
+import '@fontsource/roboto';
+import '@fontsource/lobster';
 import './index.css';
 
 import Contacts from './components/Contacts';
@@ -17,7 +20,7 @@ import * as serviceWorker from './serviceWorker';
 import { upsertContact, getContactBySlug } from './storage';
 import { slugify } from './utils';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     h1: {
       fontSize: '4rem',
@@ -29,8 +32,8 @@ const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: indigo
-  }
+    primary: indigo,
+  },
 });
 
 function AppRouter() {
@@ -38,19 +41,21 @@ function AppRouter() {
     <ThemeProvider theme={responsiveFontSizes(theme)}>
       <Container maxWidth="md">
         <Router>
-          <Switch>
-            <Route path="/" exact component={Contacts} />
-            <Route path="/add" exact component={AddEditContact} />
-            <Route path="/edit/:id" exact component={AddEditContact} />
-            <Route component={NotFound} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Contacts />} />
+            <Route path="/add" element={<AddEditContact />} />
+            <Route path="/edit/:id" element={<AddEditContact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </Router>
       </Container>
     </ThemeProvider>
   );
 }
 
-ReactDOM.render(<AppRouter />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<AppRouter />);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
@@ -61,7 +66,11 @@ serviceWorker.unregister();
 // please reload page after calling it
 window.populateTestData = () => {
   const createContact = (name, email, telephone, favorite) => ({
-    name, email, telephone, favorite, slug: slugify(name)
+    name,
+    email,
+    telephone,
+    favorite,
+    slug: slugify(name),
   });
 
   const data = [
@@ -74,9 +83,9 @@ window.populateTestData = () => {
     createContact('Hamish Smith', 'hamish@test.com', '123 456 789', true),
   ];
 
-  data.forEach(contact => {
+  data.forEach((contact) => {
     if (!getContactBySlug(contact.slug)) {
       upsertContact(contact);
     }
   });
-}
+};

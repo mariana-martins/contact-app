@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import NotFound from './NotFound';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<NotFound />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  const root = createRoot(div);
+  root.render(<NotFound />);
+  root.unmount();
 });

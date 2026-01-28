@@ -6,25 +6,25 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
-} from '@material-ui/core';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { makeStyles } from '@material-ui/core/styles';
-import indigo from '@material-ui/core/colors/indigo';
+  DialogTitle,
+} from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { makeStyles } from '@mui/styles';
+import { indigo } from '@mui/material/colors';
 
 const useStyles = makeStyles({
   button: {
     '&:hover': {
-      backgroundColor: indigo[100]
-    }
-  }
+      backgroundColor: indigo[100],
+    },
+  },
 });
 
 export default function DeleteDialog({ name, onConfirm }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = e => {
+  const handleClickOpen = (e) => {
     setOpen(true);
     e.stopPropagation();
   };
@@ -44,7 +44,7 @@ export default function DeleteDialog({ name, onConfirm }) {
       <Dialog
         open={open}
         onClose={handleClose}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         aria-labelledby="delete-dialog-title"
         aria-describedby="delete-dialog-description"
       >

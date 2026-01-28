@@ -3,21 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.3.3",
-    "@material-ui/icons": "^4.2.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1",
-    "typeface-lobster": "^0.0.72",
-    "typeface-roboto": "^0.0.75"
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fontsource/lobster": "^5.2.8",
+    "@fontsource/roboto": "^5.2.9",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
+    "@mui/styles": "^5.15.15",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "yarn prettier --single-quote --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+    "format": "yarn prettier --single-quote --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,10 +39,10 @@
     ]
   },
   "devDependencies": {
-    "husky": "^3.0.4",
-    "lint-staged": "^9.2.3",
-    "prettier": "1.18.2",
-    "pretty-quick": "^1.11.1"
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "pretty-quick": "^4.0.0"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [

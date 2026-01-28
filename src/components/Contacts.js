@@ -1,12 +1,12 @@
 import React from 'react';
-import { Grid, Typography, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Grid, Typography, Paper } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   getContacts,
   getContactBySlug,
   upsertContact,
-  deleteContactBySlug
+  deleteContactBySlug,
 } from '../storage';
 import ContactsList from './ContactsList';
 import ContactsTable from './ContactsTable';
@@ -14,22 +14,22 @@ import SuccessMessage from './SuccessMessage';
 import MenuBar from './MenuBar';
 import Footer from './Footer';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(1),
     padding: theme.spacing(8),
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2)
-    }
-  }
+      padding: theme.spacing(2),
+    },
+  },
 }));
 
 function ContactListing() {
   const [successMessage, setSuccessMessage] = React.useState(null);
   const [filterMode, setFilterMode] = React.useState('all');
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const deleteContact = slug => {
+  const deleteContact = (slug) => {
     deleteContactBySlug(slug);
     setSuccessMessage('Your contact was deleted!');
   };
@@ -51,7 +51,7 @@ function ContactListing() {
     }
 
     if (filterMode === 'favorites') {
-      return getContacts().filter(contact => contact.favorite);
+      return getContacts().filter((contact) => contact.favorite);
     }
 
     // Filter mode not expected

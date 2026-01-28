@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ContactsList from './ContactsList';
 
@@ -11,14 +11,14 @@ it('renders without crashing', () => {
       name: 'Test',
       email: 'abc@test.com',
       telephone: '000',
-      favorite: true
-    }
+      favorite: true,
+    },
   ];
-  ReactDOM.render(
+  const root = createRoot(div);
+  root.render(
     <Router>
       <ContactsList data={data} />
     </Router>,
-    div
   );
-  ReactDOM.unmountComponentAtNode(div);
+  root.unmount();
 });

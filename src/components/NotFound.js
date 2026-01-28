@@ -1,6 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { Grid, Typography } from '@material-ui/core';
+import { Navigate } from 'react-router-dom';
+import { Grid, Typography } from '@mui/material';
 
 function NotFound() {
   const [redirectToHome, setRedirectToHome] = React.useState(false);
@@ -20,7 +20,7 @@ function NotFound() {
           Going to redirect to home in 10 seconds
         </Typography>
       </Grid>
-      {redirectToHome && <Redirect to="/" />}
+      {redirectToHome && <Navigate to="/" />}
     </Grid>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function SuccessMessage({ message, onClose }) {
   const [open, setOpen] = React.useState(true);
@@ -15,7 +15,7 @@ export default function SuccessMessage({ message, onClose }) {
       open={open}
       onClose={handleClose}
       ContentProps={{
-        'aria-describedby': 'message-id'
+        'aria-describedby': 'message-id',
       }}
       message={<span id="message-id">{message}</span>}
       action={[
@@ -26,7 +26,7 @@ export default function SuccessMessage({ message, onClose }) {
           onClick={onClose}
         >
           <CloseIcon />
-        </IconButton>
+        </IconButton>,
       ]}
     />
   );

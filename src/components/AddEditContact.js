@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   Grid,
   Typography,
@@ -7,50 +7,52 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Paper
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+  Paper,
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import {
   getContactBySlug,
   upsertContact,
-  deleteContactBySlug
+  deleteContactBySlug,
 } from '../storage';
 import { slugify } from '../utils';
 import Footer from './Footer';
 
 // Using W3C regexp available on https://emailregex.com/
-const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const emailRegex =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 // Reference: https://regexr.com/3c53v
 // eslint-disable-next-line
 const telephoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(8),
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2)
-    }
+      padding: theme.spacing(2),
+    },
   },
   field: {
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
   },
   link: {
-    textDecoration: 'none'
-  }
+    textDecoration: 'none',
+  },
 }));
 
-function AddEditContact({ match }) {
-  const isAddMode = !(match && match.params && match.params.id);
+function AddEditContact() {
+  const { id } = useParams();
+  const isAddMode = !id;
   const [values, setValues] = React.useState(
     isAddMode
       ? {
           name: '',
           email: '',
           telephone: '',
-          favorite: true
+          favorite: true,
         }
-      : getContactBySlug(match.params.id)
+      : getContactBySlug(id),
   );
 
   const [saved, setSaved] = React.useState(false);
@@ -58,19 +60,19 @@ function AddEditContact({ match }) {
   const classes = useStyles();
 
   // If it is on edit mode and contact does not exist than go to home.
-  if (!isAddMode && !getContactBySlug(match.params.id)) {
-    return <Redirect to="/" />;
+  if (!isAddMode && !getContactBySlug(id)) {
+    return <Navigate to="/" />;
   }
 
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const handleCheckbox = name => event => {
+  const handleCheckbox = (name) => (event) => {
     setValues({ ...values, [name]: event.target.checked });
   };
 
-  const validateRequired = value => {
+  const validateRequired = (value) => {
     return value && value.trim() !== '';
   };
 
@@ -90,7 +92,7 @@ function AddEditContact({ match }) {
     if (isAddMode) {
       return !savedContact;
     } else {
-      return !savedContact || slug === match.params.id;
+      return !savedContact || slug === id;
     }
   };
 
@@ -108,7 +110,7 @@ function AddEditContact({ match }) {
     const slug = slugify(values.name);
     upsertContact({
       ...values,
-      slug
+      slug,
     });
     /*
       If user changes the contact name, it's going to change the slug.
@@ -116,15 +118,15 @@ function AddEditContact({ match }) {
       So, if slug changes it's going to insert a new contact.
       Now, we have to delete the old one.
     */
-    if (!isAddMode && slug !== match.params.id) {
-      deleteContactBySlug(match.params.id);
+    if (!isAddMode && slug !== id) {
+      deleteContactBySlug(id);
     }
     setSaved(true);
   };
 
   return (
     <Grid container>
-      {saved && <Redirect to="/" />}
+      {saved && <Navigate to="/" />}
       <Grid item xs={12}>
         <Typography variant="h1">
           {isAddMode ? 'Add new contact' : 'Edit contact'}

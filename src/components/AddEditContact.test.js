@@ -1,15 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AddEditContact from './AddEditContact';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(
+  const root = createRoot(div);
+  root.render(
     <Router>
       <AddEditContact />
     </Router>,
-    div
   );
-  ReactDOM.unmountComponentAtNode(div);
+  root.unmount();
 });
