@@ -101,5 +101,3 @@ This project fulfills the following requirements:
 6.  **Persistence**: Data is stored via `localStorage` for simplicity and persistence.
 
 ---
-
-_Design & Implementation by Mariana Martins Menezes_

@@ -15,7 +15,7 @@ function Footer() {
       <Grid item xs={12}>
         <footer className={classes.root}>
           <Typography variant="overline">
-            © 2019. Design & Implementation by Mariana Martins Menezes
+            Created by Mariana Martins Menezes
           </Typography>
         </footer>
       </Grid>

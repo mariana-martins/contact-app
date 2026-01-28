@@ -33,9 +33,6 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2),
     },
   },
-  field: {
-    margin: theme.spacing(1, 0),
-  },
   link: {
     textDecoration: 'none',
   },
@@ -145,7 +142,6 @@ function AddEditContact() {
                 required
                 error={!isNameValid()}
                 helperText={!isNameValid() && 'This contact already exists.'}
-                className={classes.field}
               />
             </Grid>
             <Grid item xs={12}>
@@ -159,7 +155,7 @@ function AddEditContact() {
                 fullWidth
                 error={!isEmailValid()}
                 helperText={!isEmailValid() && 'Email is invalid.'}
-                className={classes.field}
+                margin="normal"
               />
             </Grid>
             <Grid item xs={12}>
@@ -172,7 +168,7 @@ function AddEditContact() {
                 fullWidth
                 error={!isTelephoneValid()}
                 helperText={!isTelephoneValid() && 'Telephone is invalid.'}
-                className={classes.field}
+                margin="normal"
               />
             </Grid>
             <Grid item xs={12}>
@@ -186,7 +182,6 @@ function AddEditContact() {
                   />
                 }
                 label="Is it a favorite contact?"
-                className={classes.field}
               />
             </Grid>
             <Grid container item xs={12} spacing={1}>
