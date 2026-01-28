@@ -1,75 +1,105 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6b7b76e7-6619-4ad4-a3f5-bc9e6b98efaa/deploy-status)](https://app.netlify.com/sites/mariana-contact-app/deploys)
 
-# [Contact App](https://mariana-contact-app.netlify.com/)
+# 📖 Contact App
 
-Contacts website using React and Material UI
+Welcome to the **Contact App**! This is a modern, responsive, and persistent contact management website built with **React 18** and **Material UI (MUI 5)**.
 
-### How to install
+It allows you to manage your address book with ease, letting you add, edit, delete, and favorite contacts. Your data is persisted automatically using the browser's `localStorage`, so you won't lose your contacts even if you refresh the page!
 
-Before starting, please clone this repository.
+## ✨ Features
 
-After, to install this project, you need to run these two commands to go to the project directory and install it:
+- **Add & Edit Contacts**: Easily create new contacts or update existing details (Name, Email, Telephone).
+- **Favorites**: Mark your besties as favorites and filter the list to see only them.
+- **Persistent Storage**: All data is saved locally in your browser.
+- **Responsive Design**: Looks great on desktop and mobile devices.
+- **Validation**: Ensures valid email formats and required fields.
 
-#
+## 🛠 Tech Stack
+
+- **React 18**: Utilizing the latest Concurrent features and Hooks.
+- **Material UI (v5)**: For a beautiful and accessible component library.
+- **React Router (v6)**: For seamless client-side navigation.
+- **LocalStorage**: For simple and effective data persistence.
+
+## 🚀 Getting Started
+
+Follow these instructions to get the project up and running on your local machine.
+
+### Prerequisites
+
+Make sure you have **Node.js** installed.
+
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/mariana-martins/contact-app.git
+    cd contact-app
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+    _(Note: We use `npm` for this project.)_
+
+### 🏃‍♂️ Running the App
+
+In the project directory, run:
+
+```bash
+npm start
 ```
-cd contact-app
-yarn install
-```
 
-### 🍻 To initialize Contact App
+This will launch the app in development mode.
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload if you make edits.
 
-In the project directory, you can run:
+### 🧪 Testing
 
-```
-yarn start
-```
+This project comes with a suite of tests to ensure everything works as expected. To run them:
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload as you change the code.<br>
-You will also see any lint errors in the console.
-
-#### Loading test data locally
-
-If you want to load some contacts, open the browser console and type:
-
-```
-populateTestData()
-```
-
-It will add several contacts.  It's required to reload the page after doing it.
-
-### ☘ Testing Contact App
-
-In the project directory, you can run:
-
-```
+```bash
 npm test
 ```
 
-It launches the test runner in the interactive watch mode.
+This launches the test runner in interactive watch mode.
 
-### 🚀 Building Contact App
+### 📦 Building for Production
 
-In the project directory, you can run:
+To build the app for production:
 
-```
+```bash
 npm run build
 ```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-The build is minified and the filenames include the hashes.
+This builds the app to the `build` folder. It basically bundles React in production mode and optimizes the build for the best performance.
 
-## Requirements
+## 💡 Pro Tip: Load Sample Data
 
-1. The user should be able to add the contact information where:
-    - name - is required
-    - email - is required
-    - phone - optional
-1. User should be able to favorite the contact.
-1. User should be able to see the list of all contacts and list of favorite contacts.
-1. In the contacts list, the user should be able to toggle "favorite" on and off. If the contact was not unfavorited, it should disappear from the list of favorite contacts.
-1. You should be able to modify existing contact.
-1. The data should be persistent so you might want to use the localStore for simplicity.
+Want to see the app in action without manually typing tons of contacts?
+
+1.  Open the app in your browser (usually `http://localhost:3000`).
+2.  Open the **Developer Console** (F12 or Right Click -> Inspect -> Console).
+3.  Type the following command and hit Enter:
+    ```javascript
+    populateTestData();
+    ```
+4.  Reload the page, and voilà! You'll have a list of sample contacts to play with.
+
+---
+
+## 📝 Requirements Implemented
+
+This project fulfills the following requirements:
+
+1.  **Add Contact**: Users can add name (required), email (required), and phone (optional).
+2.  **Favorites**: Users can mark contacts as favorites.
+3.  **Filtering**: View all contacts or filter to see only favorites.
+4.  **Toggling**: Favoriting/Unfavoriting updates the list instantly.
+5.  **Edit**: Modify any existing contact's details.
+6.  **Persistence**: Data is stored via `localStorage` for simplicity and persistence.
+
+---
+
+_Design & Implementation by Mariana Martins Menezes_
