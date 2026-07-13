@@ -1,4 +1,4 @@
-const KEY = "contacts";
+const KEY = 'contacts';
 
 // get contacts from local storage and parse to object
 function safeGet() {

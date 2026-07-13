@@ -1,11 +1,11 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Grid, Typography } from '@mui/material';
 
 function NotFound() {
-  const [redirectToHome, setRedirectToHome] = React.useState(false);
+  const [redirectToHome, setRedirectToHome] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setRedirectToHome(true);
     }, 10000);

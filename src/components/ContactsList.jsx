@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   IconButton,
@@ -75,7 +75,7 @@ function ContactsList({ data, toggleFavorite, deleteContact }) {
   return (
     <List>
       {data.map((entry) => (
-        <React.Fragment key={entry.name}>
+        <Fragment key={entry.name}>
           <ContactItem entry={entry} toggleFavorite={toggleFavorite}>
             <DeleteDialog
               name={entry.name}
@@ -83,7 +83,7 @@ function ContactsList({ data, toggleFavorite, deleteContact }) {
             />
           </ContactItem>
           <Divider />
-        </React.Fragment>
+        </Fragment>
       ))}
     </List>
   );

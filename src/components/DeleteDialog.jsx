@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
   Button,
   IconButton,
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 export default function DeleteDialog({ name, onConfirm }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = (e) => {
     setOpen(true);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Grid, Typography, Paper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ContactListing() {
-  const [successMessage, setSuccessMessage] = React.useState(null);
-  const [filterMode, setFilterMode] = React.useState('all');
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [filterMode, setFilterMode] = useState('all');
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const deleteContact = (slug) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   Grid,
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 function AddEditContact() {
   const { id } = useParams();
   const isAddMode = !id;
-  const [values, setValues] = React.useState(
+  const [values, setValues] = useState(
     isAddMode
       ? {
           name: '',
@@ -52,7 +52,7 @@ function AddEditContact() {
       : getContactBySlug(id),
   );
 
-  const [saved, setSaved] = React.useState(false);
+  const [saved, setSaved] = useState(false);
 
   const classes = useStyles();
 

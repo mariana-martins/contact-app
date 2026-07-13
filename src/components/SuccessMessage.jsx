@@ -1,10 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function SuccessMessage({ message, onClose }) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const handleClose = () => {
     onClose();
     setOpen(false);

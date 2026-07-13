@@ -1,9 +1,5 @@
-import {
-  getContacts,
-  getContactBySlug,
-  upsertContact,
-  deleteContactBySlug,
-} from './storage';
+// eslint-disable-next-line no-unused-vars
+import * as storage from './storage';
 
 /*
   Tests not implemented yet - couldn't mock localStorage
@@ -14,23 +10,23 @@ import {
 */
 
 describe('getContacts', () => {
-  it('should return a list of contacts', () => { });
-  it('should return an empty array if stored contacts are empty', () => { });
-  it('should return an empty array if no contact available', () => { });
+  it('should return a list of contacts', () => {});
+  it('should return an empty array if stored contacts are empty', () => {});
+  it('should return an empty array if no contact available', () => {});
 });
 
 describe('getContactBySlug', () => {
-  it('should return a contact if available', () => { });
-  it('should return undefined if slug not provided', () => { });
-  it('should return undefined if contact does not exist', () => { });
+  it('should return a contact if available', () => {});
+  it('should return undefined if slug not provided', () => {});
+  it('should return undefined if contact does not exist', () => {});
 });
 
 describe('upsertContact', () => {
-  it('should insert contact', () => { });
-  it('should update existing contact', () => { });
+  it('should insert contact', () => {});
+  it('should update existing contact', () => {});
 });
 
 describe('deleteContactBySlug', () => {
-  it('should delete a contact if it exists', () => { });
-  it('does nothing if contact does not exist', () => { });
+  it('should delete a contact if it exists', () => {});
+  it('does nothing if contact does not exist', () => {});
 });
