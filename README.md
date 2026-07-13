@@ -1,103 +1,128 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/6b7b76e7-6619-4ad4-a3f5-bc9e6b98efaa/deploy-status)](https://app.netlify.com/sites/mariana-contact-app/deploys)
-
 # 📖 Contact App
 
-Welcome to the **Contact App**! This is a modern, responsive, and persistent contact management website built with **React 18** and **Material UI (MUI 5)**.
+Welcome to the **Contact App**! A modern, responsive, highly accessible contact management web application built with **React 19**, **Tailwind CSS v4**, **Radix Primitives**, and **Vite 7**.
 
-It allows you to manage your address book with ease, letting you add, edit, delete, and favorite contacts. Your data is persisted automatically using the browser's `localStorage`, so you won't lose your contacts even if you refresh the page!
+Designed from the ground up with **WCAG 2.2 AA/AAA Accessibility** standards and responsive UI/UX best practices, Contact App makes managing your address book effortless, fast, and delightful across desktop and mobile devices.
+
+---
 
 ## ✨ Features
 
-- **Add & Edit Contacts**: Easily create new contacts or update existing details (Name, Email, Telephone).
-- **Favorites**: Mark your besties as favorites and filter the list to see only them.
-- **Persistent Storage**: All data is saved locally in your browser.
-- **Responsive Design**: Looks great on desktop and mobile devices.
-- **Validation**: Ensures valid email formats and required fields.
+- **WCAG 2.2 Accessible UI**: Built with semantic HTML5 (`<main>`, `<section>`, `<footer>`, structured `<table>` with `<th scope="col">`), proper ARIA labeling (`aria-invalid`, `aria-describedby`, `aria-pressed`), and explicit keyboard focus states (`focus-visible`).
+- **Radix Primitives & Lucide Icons**: Utilizes WAI-ARIA compliant **Radix AlertDialog** for destructive confirmation modals (with automatic focus trapping and restoration) and **Radix Toast** (`role="status"`, `aria-live="polite"`) paired with tree-shakeable **Lucide React** icons.
+- **Add & Edit Contacts**: Easily create new contacts or update existing details (Name, Email, Telephone) with real-time field validation and error messaging.
+- **Favorites & Instant Filtering**: Toggle contacts as favorites with a single click and filter your list to view either **All** contacts or **My Favorites**.
+- **Responsive Layout Strategy**: Seamlessly transforms between an interactive data table on desktop/tablet viewports and a clean card list view on mobile screens.
+- **Persistent Local Storage**: Automatically saves and restores your address book state using browser `localStorage`.
+
+---
 
 ## 🛠 Tech Stack
 
-- **React 18**: Utilizing the latest Concurrent features and Hooks.
-- **Material UI (v5)**: For a beautiful and accessible component library.
-- **React Router (v6)**: For seamless client-side navigation.
-- **LocalStorage**: For simple and effective data persistence.
+- **React 19**: Modern React with functional components and hooks.
+- **Tailwind CSS v4**: CSS-first utility styling powered by the native `@tailwindcss/vite` plugin and custom `@theme` design tokens.
+- **Radix UI Primitives** (`@radix-ui/react-alert-dialog`, `@radix-ui/react-toast`): Unstyled, fully accessible interactive primitives.
+- **Lucide React**: Clean, modern SVG icons.
+- **React Router v7**: Client-side routing (`createBrowserRouter` & `RouterProvider`).
+- **Vite 7**: Ultra-fast development server and optimized production bundler.
+- **Vitest 4**: Lightning-fast unit testing framework running in `jsdom`.
+- **ESLint 10 & Prettier**: Automated code quality rules and formatting.
+- **Husky & lint-staged**: Git hooks protecting commits with automated linting, formatting, and unit tests.
+
+---
+
+## 📐 Architecture & Accessibility Highlights
+
+1. **Design System & Aesthetics**:
+   - Uses Tailwind CSS v4 `@theme` tokens for a curated indigo palette (`--color-primary-*`), smooth visual transitions, and high-contrast typography (`text-slate-900` on light backgrounds exceeding WCAG AAA 14:1 contrast ratios).
+2. **Accessible Form Handling**:
+   - Every form input is associated with an explicit `<label>`, uses `aria-invalid` and `aria-describedby` when errors occur, and provides clear contextual feedback.
+3. **Destructive Action Safety**:
+   - Deleting a contact triggers an explicit confirmation modal via Radix `AlertDialog` that traps focus, supports `Escape` key dismissal, and prevents accidental overlay clicks from dismissing critical alerts.
+
+---
 
 ## 🚀 Getting Started
 
-Follow these instructions to get the project up and running on your local machine.
+Follow these instructions to set up, test, and run the application locally.
 
 ### Prerequisites
 
-Make sure you have **Node.js** installed.
+Ensure you have **Node.js 18+** installed.
 
 ### Installation
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/mariana-martins/contact-app.git
+   cd contact-app
+   ```
 
-    ```bash
-    git clone https://github.com/mariana-martins/contact-app.git
-    cd contact-app
-    ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-    _(Note: We use `npm` for this project.)_
+### 🏃‍♂️ Running the Development Server
 
-### 🏃‍♂️ Running the App
-
-In the project directory, run:
-
+Launch the Vite dev server:
 ```bash
 npm start
 ```
+Open [http://localhost:3000](http://localhost:3000) in your browser. Changes hot-reload instantly.
 
-This will launch the app in development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload if you make edits.
+---
 
-### 🧪 Testing
+## 🧪 Testing & Verification
 
-This project comes with a suite of tests to ensure everything works as expected. To run them:
+The project includes a comprehensive Vitest test suite covering utilities, storage persistence, and all UI components:
 
 ```bash
+# Run all tests once
 npm test
+
+# Run tests in watch mode
+npm run test:watch
 ```
 
-This launches the test runner in interactive watch mode.
+---
 
-### 📦 Building for Production
+## 📦 Building for Production
 
-To build the app for production:
-
+Compile an optimized production bundle:
 ```bash
 npm run build
 ```
+Assets are generated in the `dist` folder.
 
-This builds the app to the `build` folder. It basically bundles React in production mode and optimizes the build for the best performance.
-
-## 💡 Pro Tip: Load Sample Data
-
-Want to see the app in action without manually typing tons of contacts?
-
-1.  Open the app in your browser (usually `http://localhost:3000`).
-2.  Open the **Developer Console** (F12 or Right Click -> Inspect -> Console).
-3.  Type the following command and hit Enter:
-    ```javascript
-    populateTestData();
-    ```
-4.  Reload the page, and voilà! You'll have a list of sample contacts to play with.
+To preview the production build locally:
+```bash
+npm run preview
+```
 
 ---
 
-## 📝 Requirements Implemented
+## ✅ Linting & Formatting
 
-This project fulfills the following requirements:
+Check code quality and format files automatically:
+```bash
+# Check for lint errors
+npm run lint
 
-1.  **Add Contact**: Users can add name (required), email (required), and phone (optional).
-2.  **Favorites**: Users can mark contacts as favorites.
-3.  **Filtering**: View all contacts or filter to see only favorites.
-4.  **Toggling**: Favoriting/Unfavoriting updates the list instantly.
-5.  **Edit**: Modify any existing contact's details.
-6.  **Persistence**: Data is stored via `localStorage` for simplicity and persistence.
+# Auto-format codebase
+npm run format
+```
 
 ---
+
+## 💡 Pro Tip: Populate Sample Data
+
+Want to test the application immediately without manually adding contacts?
+
+1. Open the app in your browser at `http://localhost:3000`.
+2. Open your browser's **Developer Tools Console** (`F12` or `Cmd+Option+I`).
+3. Run the following helper command:
+   ```javascript
+   populateTestData();
+   ```
+4. Refresh the page to load 7 ready-to-use sample contacts!
