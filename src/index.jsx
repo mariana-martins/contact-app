@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from '@mui/material';
 import {
@@ -16,7 +15,6 @@ import './index.css';
 import Contacts from './components/Contacts';
 import AddEditContact from './components/AddEditContact';
 import NotFound from './components/NotFound';
-import * as serviceWorker from './serviceWorker';
 import { upsertContact, getContactBySlug } from './storage';
 import { slugify } from './utils';
 
@@ -56,11 +54,6 @@ function AppRouter() {
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<AppRouter />);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
 
 // can be used on console to load data for testing
 // please reload page after calling it

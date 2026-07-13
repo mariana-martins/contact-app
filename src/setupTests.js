@@ -1,6 +1,7 @@
-// Mock MUI styles and media queries globally
-jest.mock('@mui/styles', () => ({
+import { vi } from 'vitest';
+
+vi.mock('@mui/styles', () => ({
   makeStyles: () => () => ({}),
 }));
 
-jest.mock('@mui/material/useMediaQuery', () => () => () => ({}));
+vi.mock('@mui/material/useMediaQuery', () => ({ default: () => () => ({}) }));
