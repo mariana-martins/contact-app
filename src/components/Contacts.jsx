@@ -1,106 +1,91 @@
 import { useState } from 'react';
-import { Grid, Typography, Paper } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import {
-  getContacts,
-  getContactBySlug,
-  upsertContact,
-  deleteContactBySlug,
-} from '../storage';
-import ContactsList from './ContactsList';
+import { getContacts, deleteContactBySlug, upsertContact } from '../storage';
 import ContactsTable from './ContactsTable';
-import SuccessMessage from './SuccessMessage';
+import ContactsList from './ContactsList';
 import MenuBar from './MenuBar';
+import SuccessMessage from './SuccessMessage';
 import Footer from './Footer';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: theme.spacing(1),
-    padding: theme.spacing(8),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2),
-    },
-  },
-}));
-
-function ContactListing() {
-  const [successMessage, setSuccessMessage] = useState(null);
+function Contacts() {
+  const [data, setData] = useState(getContacts());
   const [filterMode, setFilterMode] = useState('all');
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-
-  const deleteContact = (slug) => {
-    deleteContactBySlug(slug);
-    setSuccessMessage('Your contact was deleted!');
-  };
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const toggleFavorite = (e, slug, name) => {
-    const contact = getContactBySlug(slug);
-    contact.favorite = !contact.favorite;
-    upsertContact(contact);
-    const message = contact.favorite
-      ? `${name} is a favorite contact now!`
-      : `${name} isn't a favorite contact now!`;
-    setSuccessMessage(message);
     e.stopPropagation();
+    const updated = data.map((entry) => {
+      if (entry.slug === slug) {
+        return { ...entry, favorite: !entry.favorite };
+      }
+      return entry;
+    });
+    const entry = updated.find((entry) => entry.slug === slug);
+    upsertContact(entry);
+    setData(updated);
+    setSuccessMessage(
+      `${name} was ${entry.favorite ? 'added to' : 'removed from'} favorites`,
+    );
   };
 
-  const getFilteredContacts = () => {
-    if (filterMode === 'all') {
-      return getContacts();
-    }
-
-    if (filterMode === 'favorites') {
-      return getContacts().filter((contact) => contact.favorite);
-    }
-
-    // Filter mode not expected
-    return [];
+  const handleDelete = (slug) => {
+    const entry = data.find((entry) => entry.slug === slug);
+    deleteContactBySlug(slug);
+    setData(getContacts());
+    setSuccessMessage(`${entry.name} was deleted`);
   };
 
-  const classes = useStyles();
-  const contacts = getFilteredContacts();
-  const RenderContacts = isMobile ? ContactsList : ContactsTable;
+  const displayData =
+    filterMode === 'all'
+      ? data
+      : data.filter((entry) => entry.favorite === true);
 
   return (
-    <Paper className={classes.root}>
+    <main>
+      <h1 className="font-heading my-8 text-center text-6xl tracking-wider text-slate-100 drop-shadow-md">
+        Contact App
+      </h1>
+
+      <section className="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-900/5 sm:p-8">
+        <MenuBar filterMode={filterMode} onFilterChange={setFilterMode} />
+
+        {displayData.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-base font-medium text-slate-500">
+              No contacts found
+            </p>
+          </div>
+        ) : (
+          <>
+            {/* Desktop Table View */}
+            <div className="hidden md:block">
+              <ContactsTable
+                data={displayData}
+                toggleFavorite={toggleFavorite}
+                deleteContact={handleDelete}
+              />
+            </div>
+
+            {/* Mobile List View */}
+            <div className="md:hidden">
+              <ContactsList
+                data={displayData}
+                toggleFavorite={toggleFavorite}
+                deleteContact={handleDelete}
+              />
+            </div>
+          </>
+        )}
+      </section>
+
       {successMessage && (
         <SuccessMessage
           message={successMessage}
           onClose={() => setSuccessMessage(null)}
         />
       )}
-      <Grid container>
-        <Grid item xs={12}>
-          <MenuBar filterMode={filterMode} onFilterChange={setFilterMode} />
-        </Grid>
-        <Grid item xs={12}>
-          {contacts.length === 0 ? (
-            <Typography>No contacts available.</Typography>
-          ) : (
-            <RenderContacts
-              data={contacts}
-              toggleFavorite={toggleFavorite}
-              deleteContact={deleteContact}
-            />
-          )}
-        </Grid>
-      </Grid>
-    </Paper>
-  );
-}
 
-function Contacts() {
-  return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Typography variant="h1">Contact App</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <ContactListing />
-      </Grid>
       <Footer />
-    </Grid>
+    </main>
   );
 }
 

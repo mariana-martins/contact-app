@@ -1,93 +1,62 @@
 import { Link } from 'react-router-dom';
-import { Grid, Button, ButtonGroup, Hidden, Fab } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { makeStyles } from '@mui/styles';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AddIcon from '@mui/icons-material/Add';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    [theme.breakpoints.up('md')]: {
-      marginBottom: theme.spacing(3),
-    },
-  },
-  button: {
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1, 0),
-    },
-  },
-  addIcon: {
-    marginRight: theme.spacing(0.5),
-  },
-  fab: {
-    margin: 0,
-    top: 'auto',
-    right: theme.spacing(3),
-    bottom: theme.spacing(3),
-    left: 'auto',
-    position: 'fixed',
-    zIndex: 99,
-  },
-  link: {
-    textDecoration: 'none',
-  },
-}));
+import { PlusCircle, Plus } from 'lucide-react';
 
 function MenuBar({ filterMode, onFilterChange }) {
-  const classes = useStyles();
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-
   return (
-    <Grid container className={classes.root}>
-      <Grid
-        container
-        item
-        xs={12}
-        md={6}
-        justifyContent={isMobile ? 'center' : 'flex-start'}
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div
+        role="group"
+        aria-label="Filter contacts"
+        className="inline-flex rounded-xl bg-slate-100 p-1 shadow-inner"
       >
-        <ButtonGroup fullWidth className={classes.button}>
-          {' '}
-          {/* TODO: ADD ARIA-LABEL */}
-          <Button
-            disabled={filterMode === 'all'}
-            onClick={() => onFilterChange('all')}
-            color="primary"
-            variant="contained"
-          >
-            ALL
-          </Button>
-          <Button
-            disabled={filterMode === 'favorites'}
-            color="primary"
-            variant="contained"
-            onClick={() => onFilterChange('favorites')}
-          >
-            MY FAVORITES
-          </Button>
-        </ButtonGroup>
-      </Grid>
-      <Hidden smDown>
-        <Grid container item md={6} justifyContent={'flex-end'}>
-          <Link to="/add" className={classes.link}>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              <AddCircleIcon className={classes.addIcon} /> New Contact
-            </Button>
-          </Link>
-        </Grid>
-      </Hidden>
-      <Hidden mdUp>
-        <Link to="/add" className={classes.link}>
-          <Fab color="primary" aria-label="add" className={classes.fab}>
-            <AddIcon />
-          </Fab>
+        <button
+          type="button"
+          aria-pressed={filterMode === 'all'}
+          onClick={() => onFilterChange('all')}
+          className={`rounded-lg px-4 py-2 text-xs font-bold tracking-wider uppercase transition-all ${
+            filterMode === 'all'
+              ? 'bg-primary-600 text-white shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          } focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none`}
+        >
+          All
+        </button>
+        <button
+          type="button"
+          aria-pressed={filterMode === 'favorites'}
+          onClick={() => onFilterChange('favorites')}
+          className={`rounded-lg px-4 py-2 text-xs font-bold tracking-wider uppercase transition-all ${
+            filterMode === 'favorites'
+              ? 'bg-primary-600 text-white shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          } focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none`}
+        >
+          My Favorites
+        </button>
+      </div>
+
+      {/* Desktop New Contact Button */}
+      <div className="hidden sm:block">
+        <Link
+          to="/add"
+          className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+        >
+          <PlusCircle className="h-4 w-4" aria-hidden="true" />
+          New Contact
         </Link>
-      </Hidden>
-    </Grid>
+      </div>
+
+      {/* Mobile Floating Action Button */}
+      <div className="sm:hidden">
+        <Link
+          to="/add"
+          aria-label="Add new contact"
+          className="fixed right-6 bottom-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-xl transition-transform hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+        >
+          <Plus className="h-6 w-6" aria-hidden="true" />
+        </Link>
+      </div>
+    </div>
   );
 }
 

@@ -1,24 +1,10 @@
-import { Grid, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    textAlign: 'center',
-  },
-}));
-
 function Footer() {
-  const classes = useStyles();
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <footer className={classes.root}>
-          <Typography variant="overline">
-            Created by Mariana Martins Menezes
-          </Typography>
-        </footer>
-      </Grid>
-    </Grid>
+    <footer className="mt-8 py-6 text-center">
+      <p className="text-xs font-semibold uppercase tracking-wider text-slate-900">
+        Created by Mariana Martins Menezes
+      </p>
+    </footer>
   );
 }
 

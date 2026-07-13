@@ -4,16 +4,16 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
     "@fontsource/lobster": "^5.2.8",
-    "@fontsource/roboto": "^5.2.9",
-    "@mui/icons-material": "^5.15.15",
-    "@mui/material": "^5.15.15",
-    "@mui/styles": "^5.15.15",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "@fontsource/roboto": "^5.2.10",
+    "@radix-ui/react-alert-dialog": "^1.1.19",
+    "@radix-ui/react-toast": "^1.2.19",
+    "@tailwindcss/vite": "^4.3.2",
+    "lucide-react": "^1.24.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1",
+    "tailwindcss": "^4.3.2"
   },
   "scripts": {
     "start": "vite",
@@ -26,19 +26,17 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.5",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@vitejs/plugin-react": "^4.4.1",
-    "eslint": "^9.39.5",
-    "eslint-plugin-react": "^7.37.5",
+    "@eslint/js": "^10.0.1",
+    "@vitejs/plugin-react": "^5.2.0",
+    "eslint": "^10.7.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.7.0",
     "husky": "^9.0.11",
-    "jsdom": "^25.0.1",
-    "lint-staged": "^15.2.2",
+    "jsdom": "^29.1.1",
+    "lint-staged": "^17.0.8",
     "prettier": "^3.9.5",
-    "vite": "^6.3.5",
-    "vitest": "^3.1.3"
+    "vite": "^7.0.3",
+    "vitest": "^4.1.10"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [

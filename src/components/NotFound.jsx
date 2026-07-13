@@ -1,27 +1,26 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { Grid, Typography } from '@mui/material';
 
 function NotFound() {
-  const [redirectToHome, setRedirectToHome] = useState(false);
+  const [redirectToHome, setRedirectToHome] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const timer = setTimeout(() => {
       setRedirectToHome(true);
     }, 10000);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Typography variant="h1">Page not found</Typography>
-        <Typography variant="h2">
-          Going to redirect to home in 10 seconds
-        </Typography>
-      </Grid>
+    <main className="flex min-h-[60vh] flex-col items-center justify-center text-center">
+      <h1 className="font-heading my-8 text-6xl tracking-wider text-slate-100 drop-shadow-md">
+        Page not found
+      </h1>
+      <p className="text-xl font-medium text-slate-100/90">
+        Going to redirect to home in 10 seconds
+      </p>
       {redirectToHome && <Navigate to="/" />}
-    </Grid>
+    </main>
   );
 }
 

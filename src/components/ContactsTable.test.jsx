@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import ContactsTable from './ContactsTable';
 
 it('renders without crashing', () => {
@@ -14,10 +14,9 @@ it('renders without crashing', () => {
     },
   ];
   const root = createRoot(div);
-  root.render(
-    <Router>
-      <ContactsTable data={data} />
-    </Router>,
-  );
+  const router = createMemoryRouter([
+    { path: '/', element: <ContactsTable data={data} /> },
+  ]);
+  root.render(<RouterProvider router={router} />);
   root.unmount();
 });

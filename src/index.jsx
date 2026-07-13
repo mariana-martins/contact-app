@@ -1,11 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Container } from '@mui/material';
-import {
-  createTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from '@mui/material/styles';
-import { indigo } from '@mui/material/colors';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import * as Toast from '@radix-ui/react-toast';
 import { createRoot } from 'react-dom/client';
 
 import '@fontsource/roboto';
@@ -18,42 +12,23 @@ import NotFound from './components/NotFound';
 import { upsertContact, getContactBySlug } from './storage';
 import { slugify } from './utils';
 
-const theme = createTheme({
-  typography: {
-    h1: {
-      fontSize: '4rem',
-      fontFamily: 'lobster',
-      textAlign: 'center',
-      color: '#f0f0f0',
-      letterSpacing: '0.3rem',
-      margin: '50px 0',
-    },
-  },
-  palette: {
-    primary: indigo,
-  },
-});
-
-function AppRouter() {
-  return (
-    <ThemeProvider theme={responsiveFontSizes(theme)}>
-      <Container maxWidth="md">
-        <Router>
-          <Routes>
-            <Route path="/" element={<Contacts />} />
-            <Route path="/add" element={<AddEditContact />} />
-            <Route path="/edit/:id" element={<AddEditContact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
-      </Container>
-    </ThemeProvider>
-  );
-}
+const router = createBrowserRouter([
+  { path: '/', element: <Contacts /> },
+  { path: '/add', element: <AddEditContact /> },
+  { path: '/edit/:id', element: <AddEditContact /> },
+  { path: '*', element: <NotFound /> },
+]);
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<AppRouter />);
+root.render(
+  <Toast.Provider swipeDirection="right">
+    <div className="mx-auto max-w-4xl px-4 py-6">
+      <RouterProvider router={router} />
+    </div>
+    <Toast.Viewport className="fixed top-4 right-4 z-50 flex max-h-screen w-full max-w-sm flex-col gap-2 p-4 outline-none" />
+  </Toast.Provider>,
+);
 
 // can be used on console to load data for testing
 // please reload page after calling it
