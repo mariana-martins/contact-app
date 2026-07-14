@@ -1,9 +1,12 @@
-import { createRoot } from 'react-dom/client';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import NotFound from './NotFound';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  const root = createRoot(div);
-  root.render(<NotFound />);
-  root.unmount();
+it('renders "Page not found" heading', () => {
+  render(
+    <MemoryRouter>
+      <NotFound />
+    </MemoryRouter>,
+  );
+  expect(screen.getByText('Page not found')).toBeInTheDocument();
 });

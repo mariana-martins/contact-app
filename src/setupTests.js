@@ -1,2 +1,5 @@
-// setupTests.js
-// Clean setup file for Vitest tests
+import '@testing-library/jest-dom';
+
+if (!Element.prototype.hasPointerCapture) {
+  Element.prototype.hasPointerCapture = () => false;
+}

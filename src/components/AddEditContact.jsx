@@ -112,7 +112,7 @@ function AddEditContact() {
   };
 
   return (
-    <main>
+    <main className="w-full">
       {saved && <Navigate to="/" />}
       <h1 className="font-heading my-8 text-center text-6xl tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] text-balance focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white rounded-lg">
         {isAddMode ? 'Add new contact' : 'Edit contact'}

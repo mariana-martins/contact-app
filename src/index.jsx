@@ -38,11 +38,14 @@ function RootLayout() {
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-slate-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-4 focus:py-2 focus:bg-white focus:text-slate-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
       >
         Skip to main content
       </a>
-      <div className="mx-auto max-w-4xl px-4 py-6" id="main-content">
+      <div
+        className="mx-auto flex min-h-screen max-w-4xl flex-col justify-center px-4 py-6"
+        id="main-content"
+      >
         <Outlet />
       </div>
       <Toast.Viewport className="fixed top-4 right-4 z-50 flex max-h-screen w-full max-w-sm flex-col gap-2 p-4 outline-none" />
