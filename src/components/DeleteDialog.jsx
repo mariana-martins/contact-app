@@ -22,7 +22,7 @@ export default function DeleteDialog({ name, onConfirm }) {
         type="button"
         onClick={handleClickOpen}
         aria-label={`Delete ${name}`}
-        className="rounded-lg p-2 text-slate-700 transition-colors hover:bg-red-50 hover:text-red-600 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+        className="cursor-pointer rounded-lg p-2 text-slate-700 transition-colors hover:bg-red-50 hover:text-red-600 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:outline-none min-h-11 min-w-11 flex items-center justify-center"
       >
         <Trash2 className="h-5 w-5" aria-hidden="true" />
       </button>
@@ -49,7 +49,7 @@ export default function DeleteDialog({ name, onConfirm }) {
               <button
                 type="button"
                 onClick={(e) => e.stopPropagation()}
-                className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:outline-none"
+                className="cursor-pointer rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-[0_0_0_1px_rgba(0,0,0,0.06)] transition-[color,background-color,box-shadow,scale] duration-150 ease-out hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.96]"
               >
                 Cancel
               </button>
@@ -58,7 +58,7 @@ export default function DeleteDialog({ name, onConfirm }) {
               <button
                 type="button"
                 onClick={handleConfirm}
-                className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+                className="cursor-pointer rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-[background-color,scale] duration-150 ease-out hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.96]"
               >
                 Yes, delete it!
               </button>

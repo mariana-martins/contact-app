@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import {
   getContactBySlug,
   upsertContact,
@@ -18,6 +18,7 @@ const telephoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
 
 function AddEditContact() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const isAddMode = !id;
   const [values, setValues] = useState(
     isAddMode
@@ -31,6 +32,22 @@ function AddEditContact() {
   );
 
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    document.title = isAddMode
+      ? 'Add New Contact | Contact App'
+      : 'Edit Contact | Contact App';
+  }, [isAddMode]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        navigate('/');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
 
   // If it is on edit mode and contact does not exist than go to home.
   if (!isAddMode && !getContactBySlug(id)) {
@@ -97,7 +114,7 @@ function AddEditContact() {
   return (
     <main>
       {saved && <Navigate to="/" />}
-      <h1 className="font-heading my-8 text-center text-6xl tracking-wider text-slate-100 drop-shadow-md">
+      <h1 className="font-heading my-8 text-center text-6xl tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] text-balance focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white rounded-lg">
         {isAddMode ? 'Add new contact' : 'Edit contact'}
       </h1>
 
@@ -123,7 +140,8 @@ function AddEditContact() {
             />
             {!isNameValid() && (
               <p id="name-error" className="mt-1.5 text-sm text-red-600">
-                This contact already exists.
+                A contact with this name already exists. Please use a different
+                name.
               </p>
             )}
           </div>
@@ -148,7 +166,7 @@ function AddEditContact() {
             />
             {!isEmailValid() && (
               <p id="email-error" className="mt-1.5 text-sm text-red-600">
-                Email is invalid.
+                Please enter a valid email address (e.g., name@domain.com).
               </p>
             )}
           </div>
@@ -172,7 +190,7 @@ function AddEditContact() {
             />
             {!isTelephoneValid() && (
               <p id="tel-error" className="mt-1.5 text-sm text-red-600">
-                Telephone is invalid.
+                Please enter a valid telephone number (e.g., 123 456 789).
               </p>
             )}
           </div>
@@ -184,7 +202,7 @@ function AddEditContact() {
               type="checkbox"
               checked={values.favorite}
               onChange={handleCheckbox('favorite')}
-              className="h-5 w-5 rounded-md border-slate-300 text-primary-600 focus:ring-primary-500"
+              className="h-5 w-5 rounded-md border-slate-300 text-primary-600 focus:ring-primary-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
             />
             <label
               htmlFor="contact-favorite"
@@ -198,14 +216,14 @@ function AddEditContact() {
           <div className="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-slate-100">
             <Link
               to="/"
-              className="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:outline-none"
+              className="rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-[0_0_0_1px_rgba(0,0,0,0.06)] transition-[color,background-color,box-shadow,scale] duration-150 ease-out hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.96]"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={!isFormValid()}
-              className="rounded-xl bg-primary-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+              className="cursor-pointer rounded-xl bg-primary-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-[background-color,scale,opacity] duration-150 ease-out hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.96]"
             >
               Save
             </button>

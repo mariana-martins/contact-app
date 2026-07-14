@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getContacts, deleteContactBySlug, upsertContact } from '../storage';
 import ContactsTable from './ContactsTable';
 import ContactsList from './ContactsList';
@@ -10,6 +10,10 @@ function Contacts() {
   const [data, setData] = useState(getContacts());
   const [filterMode, setFilterMode] = useState('all');
   const [successMessage, setSuccessMessage] = useState(null);
+
+  useEffect(() => {
+    document.title = 'Contacts | Contact App';
+  }, []);
 
   const toggleFavorite = (e, slug, name) => {
     e.stopPropagation();
@@ -41,7 +45,7 @@ function Contacts() {
 
   return (
     <main>
-      <h1 className="font-heading my-8 text-center text-6xl tracking-wider text-slate-100 drop-shadow-md">
+      <h1 className="font-heading my-8 text-center text-6xl tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] text-balance focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white rounded-lg">
         Contact App
       </h1>
 
@@ -50,7 +54,7 @@ function Contacts() {
 
         {displayData.length === 0 ? (
           <div className="py-12 text-center">
-            <p className="text-base font-medium text-slate-500">
+            <p className="text-base font-medium text-slate-500 text-pretty">
               No contacts found
             </p>
           </div>

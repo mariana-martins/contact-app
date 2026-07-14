@@ -27,7 +27,7 @@ export default function SuccessMessage({ message, onClose }) {
           type="button"
           onClick={() => handleOpenChange(false)}
           aria-label="Close notification"
-          className="rounded-lg p-1 text-slate-300 transition-colors hover:bg-slate-800 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+          className="cursor-pointer rounded-lg p-2 text-slate-300 transition-colors hover:bg-slate-800 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none min-h-11 min-w-11 flex items-center justify-center"
         >
           <X className="h-4 w-4" />
         </button>
